@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAM - Sign In</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --brand-bg: #0a1628;
+      --brand-accent: #3b82f6;
+      --brand-accent-light: #60a5fa;
+      --form-bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text-primary: #0f172a;
+      --text-secondary: #64748b;
+      --text-muted: #94a3b8;
+      --border: #e2e8f0;
+      --border-focus: #3b82f6;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --cam-icon-logo-gold: url("data:image/svg+xml,%3Csvg%20width%3D%2228%22%20height%3D%2228%22%20viewBox%3D%220%200%2028%2028%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%20%3Crect%20width%3D%2228%22%20height%3D%2228%22%20rx%3D%225.5296%22%20fill%3D%22%23F1BC37%22%2F%3E%20%3Cg%20style%3D%22mix-blend-mode%3Aluminosity%22%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M14.0615%204.97233C13.8275%204.83312%2013.5359%204.83417%2013.3029%204.97506L6.2082%209.26602C6.04259%209.36618%205.94141%209.54564%205.94141%209.73918V18.478C5.94141%2018.6716%206.04259%2018.851%206.2082%2018.9512L13.2876%2023.2329C13.5286%2023.3786%2013.8316%2023.3743%2014.0683%2023.2219L21.1678%2018.6502C21.3259%2018.5484%2021.4214%2018.3733%2021.4214%2018.1853V9.66607C21.4214%209.47111%2021.3187%209.29056%2021.1512%209.19087L14.0615%204.97233ZM10.2876%2012.141L12.7609%2010.6452L15.2784%2012.141V19.0817L12.2424%2017.2597V13.2987L10.2876%2012.141Z%22%20fill%3D%22url%28%23paint0_linear_8697_2304%29%22%2F%3E%20%3Cmask%20id%3D%22mask0_8697_2304%22%20style%3D%22mask-type%3Aluminance%22%20maskUnits%3D%22userSpaceOnUse%22%20x%3D%225%22%20y%3D%224%22%20width%3D%2217%22%20height%3D%2220%22%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M14.0615%204.97233C13.8275%204.83312%2013.5359%204.83417%2013.3029%204.97506L6.2082%209.26602C6.04259%209.36618%205.94141%209.54564%205.94141%209.73918V18.478C5.94141%2018.6716%206.04259%2018.851%206.2082%2018.9512L13.2876%2023.2329C13.5286%2023.3786%2013.8316%2023.3743%2014.0683%2023.2219L21.1678%2018.6502C21.3259%2018.5484%2021.4214%2018.3733%2021.4214%2018.1853V9.66607C21.4214%209.47111%2021.3187%209.29056%2021.1512%209.19087L14.0615%204.97233ZM10.2876%2012.141L12.7609%2010.6452L15.2784%2012.141V19.0817L12.2424%2017.2597V13.2987L10.2876%2012.141Z%22%20fill%3D%22white%22%2F%3E%20%3C%2Fmask%3E%20%3Cg%20mask%3D%22url%28%23mask0_8697_2304%29%22%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M8.26172%208.00421L15.3068%2012.1543L18.3361%2010.9524L21.9205%209.53035L13.3663%204.01807L8.26172%208.00421Z%22%20fill%3D%22url%28%23paint1_linear_8697_2304%29%22%2F%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M5.48828%2018.9135L12.2449%2017.2607L18.1566%2020.8339L13.3556%2024.8079L5.48828%2018.9135Z%22%20fill%3D%22url%28%23paint2_linear_8697_2304%29%22%2F%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M15.2812%2012.1457V22.5895C15.2812%2022.5895%2021.8093%2021.0611%2022.325%2019.6039C22.8407%2018.1467%2023.2767%208.29883%2023.2767%208.29883L15.2812%2012.1457Z%22%20fill%3D%22url%28%23paint3_linear_8697_2304%29%22%2F%3E%20%3C%2Fg%3E%20%3C%2Fg%3E%20%3Cdefs%3E%20%3ClinearGradient%20id%3D%22paint0_linear_8697_2304%22%20x1%3D%2211.3772%22%20y1%3D%226.03192%22%20x2%3D%223.36429%22%20y2%3D%228.5616%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%20%3Cstop%20stop-color%3D%22%23FFE398%22%2F%3E%20%3Cstop%20offset%3D%220.275018%22%20stop-color%3D%22%23FFF2CE%22%2F%3E%20%3Cstop%20offset%3D%220.557013%22%20stop-color%3D%22white%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22white%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22paint1_linear_8697_2304%22%20x1%3D%2221.1116%22%20y1%3D%2211.5847%22%20x2%3D%2220.6517%22%20y2%3D%224.5888%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%20%3Cstop%20stop-color%3D%22%23FFEAB0%22%2F%3E%20%3Cstop%20offset%3D%220.28277%22%20stop-color%3D%22white%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22white%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22paint2_linear_8697_2304%22%20x1%3D%2219.397%22%20y1%3D%2219.156%22%20x2%3D%2213.321%22%20y2%3D%2211.94%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%20%3Cstop%20stop-color%3D%22%23FFE59E%22%2F%3E%20%3Cstop%20offset%3D%220.262145%22%20stop-color%3D%22%23FFFDF9%22%2F%3E%20%3Cstop%20offset%3D%220.50842%22%20stop-color%3D%22white%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23FFEBB6%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22paint3_linear_8697_2304%22%20x1%3D%2217.3667%22%20y1%3D%222.61127%22%20x2%3D%225.85164%22%20y2%3D%229.18464%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%20%3Cstop%20stop-color%3D%22%23FFE6A0%22%2F%3E%20%3Cstop%20offset%3D%220.481945%22%20stop-color%3D%22white%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22white%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22white%22%2F%3E%20%3C%2FlinearGradient%3E%20%3C%2Fdefs%3E%20%3C%2Fsvg%3E");
+      --cam-icon-logo-navy: url("data:image/svg+xml,%3Csvg%20width%3D%2228%22%20height%3D%2228%22%20viewBox%3D%220%200%2028%2028%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%20%3Crect%20width%3D%2228%22%20height%3D%2228%22%20rx%3D%225.5296%22%20fill%3D%22%23091E42%22%2F%3E%20%3Cg%20style%3D%22mix-blend-mode%3Aluminosity%22%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M14.06%204.97258C13.8261%204.83336%2013.5344%204.83441%2013.3015%204.97531L6.20673%209.26627C6.04113%209.36643%205.93994%209.54588%205.93994%209.73942V18.4783C5.93994%2018.6718%206.04113%2018.8513%206.20673%2018.9514L13.2861%2023.2331C13.5271%2023.3789%2013.8301%2023.3746%2014.0669%2023.2221L21.1664%2018.6504C21.3244%2018.5486%2021.4199%2018.3735%2021.4199%2018.1855V9.66631C21.4199%209.47135%2021.3173%209.2908%2021.1497%209.19111L14.06%204.97258ZM10.2862%2012.1412L12.7595%2010.6454L15.2769%2012.1412V19.0819L12.241%2017.2599V13.2989L10.2862%2012.1412Z%22%20fill%3D%22url%28%23paint0_linear_3375_722%29%22%2F%3E%20%3Cmask%20id%3D%22mask0_3375_722%22%20style%3D%22mask-type%3Aluminance%22%20maskUnits%3D%22userSpaceOnUse%22%20x%3D%225%22%20y%3D%224%22%20width%3D%2217%22%20height%3D%2220%22%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M14.06%204.97258C13.8261%204.83336%2013.5344%204.83441%2013.3015%204.97531L6.20673%209.26627C6.04113%209.36643%205.93994%209.54588%205.93994%209.73942V18.4783C5.93994%2018.6718%206.04113%2018.8513%206.20673%2018.9514L13.2861%2023.2331C13.5271%2023.3789%2013.8301%2023.3746%2014.0669%2023.2221L21.1664%2018.6504C21.3244%2018.5486%2021.4199%2018.3735%2021.4199%2018.1855V9.66631C21.4199%209.47135%2021.3173%209.2908%2021.1497%209.19111L14.06%204.97258ZM10.2862%2012.1412L12.7595%2010.6454L15.2769%2012.1412V19.0819L12.241%2017.2599V13.2989L10.2862%2012.1412Z%22%20fill%3D%22white%22%2F%3E%20%3C%2Fmask%3E%20%3Cg%20mask%3D%22url%28%23mask0_3375_722%29%22%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M8.25928%208.00445L15.3043%2012.1546L18.3337%2010.9527L21.9181%209.5306L13.3639%204.01831L8.25928%208.00445Z%22%20fill%3D%22url%28%23paint1_linear_3375_722%29%22%2F%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M5.48779%2018.9138L12.2444%2017.261L18.1561%2020.8341L13.3551%2024.8081L5.48779%2018.9138Z%22%20fill%3D%22url%28%23paint2_linear_3375_722%29%22%2F%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M15.2793%2012.1457V22.5895C15.2793%2022.5895%2021.8074%2021.0611%2022.3231%2019.6039C22.8388%2018.1467%2023.2747%208.29883%2023.2747%208.29883L15.2793%2012.1457Z%22%20fill%3D%22url%28%23paint3_linear_3375_722%29%22%2F%3E%20%3C%2Fg%3E%20%3C%2Fg%3E%20%3Cdefs%3E%20%3ClinearGradient%20id%3D%22paint0_linear_3375_722%22%20x1%3D%2211.3758%22%20y1%3D%226.03216%22%20x2%3D%223.36282%22%20y2%3D%228.56184%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%20%3Cstop%20stop-color%3D%22%23FFE398%22%2F%3E%20%3Cstop%20offset%3D%220.275018%22%20stop-color%3D%22%23FFF2CE%22%2F%3E%20%3Cstop%20offset%3D%220.557013%22%20stop-color%3D%22white%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22white%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22paint1_linear_3375_722%22%20x1%3D%2221.1091%22%20y1%3D%2211.5849%22%20x2%3D%2220.6493%22%20y2%3D%224.58904%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%20%3Cstop%20stop-color%3D%22%23FFEAB0%22%2F%3E%20%3Cstop%20offset%3D%220.28277%22%20stop-color%3D%22white%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22white%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22paint2_linear_3375_722%22%20x1%3D%2219.3966%22%20y1%3D%2219.1562%22%20x2%3D%2213.3206%22%20y2%3D%2211.9402%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%20%3Cstop%20stop-color%3D%22%23FFE59E%22%2F%3E%20%3Cstop%20offset%3D%220.262145%22%20stop-color%3D%22%23FFFDF9%22%2F%3E%20%3Cstop%20offset%3D%220.50842%22%20stop-color%3D%22white%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23FFEBB6%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22paint3_linear_3375_722%22%20x1%3D%2217.3647%22%20y1%3D%222.61127%22%20x2%3D%225.84969%22%20y2%3D%229.18464%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%20%3Cstop%20stop-color%3D%22%23FFE6A0%22%2F%3E%20%3Cstop%20offset%3D%220.481945%22%20stop-color%3D%22white%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22white%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22white%22%2F%3E%20%3C%2FlinearGradient%3E%20%3C%2Fdefs%3E%20%3C%2Fsvg%3E");
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      background: var(--form-bg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ═══════════════════════════════════════════
+       LEFT BRAND PANEL
+       ═══════════════════════════════════════════ */
+    .brand-panel {
+      width: 45%;
+      min-height: 100vh;
+      background: var(--brand-bg);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 40px 48px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    /* Animated grid background */
+    .grid-bg {
+      position: absolute;
+      inset: 0;
+      opacity: 0.06;
+      background-image:
+        linear-gradient(rgba(59,130,246,0.5) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59,130,246,0.5) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
+    }
+
+    /* Gradient orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+    .orb-1 {
+      width: 400px; height: 400px;
+      background: rgba(59, 130, 246, 0.15);
+      top: -100px; left: -80px;
+    }
+    .orb-2 {
+      width: 300px; height: 300px;
+      background: rgba(139, 92, 246, 0.1);
+      bottom: -60px; right: -40px;
+    }
+    .orb-3 {
+      width: 200px; height: 200px;
+      background: rgba(6, 182, 212, 0.08);
+      top: 40%; left: 60%;
+    }
+
+    .brand-top {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* CAM 1Token logo — v-icon cam-1token-* (embedded for CodePen) */
+    .cam-logo-mark {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+      background: var(--cam-icon-logo-gold) center / contain no-repeat;
+    }
+    .cam-logo-mark--navy {
+      background-image: var(--cam-icon-logo-navy);
+    }
+    .cam-logo-mark--sm {
+      width: 26px;
+      height: 26px;
+    }
+
+    .logo-text {
+      font-size: 14px;
+      font-weight: 700;
+      color: #f1f5f9;
+      letter-spacing: 2px;
+    }
+
+    .region-badge {
+      font-size: 10px;
+      font-family: 'JetBrains Mono', 'SF Mono', monospace;
+      color: var(--brand-accent-light);
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: 6px;
+      padding: 4px 10px;
+      letter-spacing: 0.5px;
+    }
+
+    .brand-center {
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .brand-headline {
+      font-size: 38px;
+      font-weight: 800;
+      color: #f1f5f9;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+      margin-bottom: 20px;
+    }
+
+    .brand-headline em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--brand-accent) 0%, #818cf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .brand-desc {
+      font-size: 14px;
+      color: #94a3b8;
+      line-height: 1.75;
+      max-width: 340px;
+    }
+
+    /* Feature pills */
+    .feature-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+
+    .feature-pill {
+      font-size: 11px;
+      font-weight: 500;
+      color: #cbd5e1;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .feature-pill .dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--brand-accent);
+    }
+
+    /* Bottom bar */
+    .brand-bottom {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .status-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      font-family: 'JetBrains Mono', 'SF Mono', monospace;
+      color: #64748b;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 6px;
+      padding: 4px 10px;
+    }
+
+    .status-chip .label {
+      font-size: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #475569;
+    }
+
+    .ping-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #22c55e;
+    }
+
+    /* ═══════════════════════════════════════════
+       RIGHT FORM PANEL
+       ═══════════════════════════════════════════ */
+    .form-panel {
+      flex: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: var(--form-bg);
+      position: relative;
+    }
+
+    .form-topbar {
+      display: flex;
+      justify-content: flex-end;
+      padding: 20px 32px;
+    }
+
+    .lang-btn {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s;
+    }
+
+    .lang-btn:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+
+    .form-center {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 48px;
+    }
+
+    .form-card {
+      width: 100%;
+      max-width: 420px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 40px 36px;
+      box-shadow:
+        0 1px 3px rgba(0,0,0,0.04),
+        0 6px 24px rgba(0,0,0,0.03);
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .form-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 32px;
+      letter-spacing: -0.3px;
+    }
+
+    /* SSO buttons */
+    .sso-primary {
+      width: 100%;
+      height: 44px;
+      background: var(--brand-accent);
+      border: none;
+      border-radius: var(--radius-sm);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      transition: all 0.2s;
+    }
+
+    .sso-primary:hover {
+      background: #2563eb;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+
+    .sso-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 0;
+    }
+
+    .sso-secondary {
+      flex: 1;
+      height: 42px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-size: 13px;
+      font-weight: 500;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.15s;
+    }
+
+    .sso-secondary:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+
+    .sso-secondary svg { flex-shrink: 0; }
+
+    /* Divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 24px 0 20px;
+    }
+
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .divider span {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Form inputs */
+    .field-group { margin-bottom: 16px; }
+
+    .field-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .field-input {
+      width: 100%;
+      height: 42px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0 14px;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--text-primary);
+      background: #fff;
+      outline: none;
+      transition: all 0.15s;
+    }
+
+    .field-input:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .field-input::placeholder {
+      color: #cbd5e1;
+    }
+
+    .password-field {
+      position: relative;
+    }
+
+    .password-field .field-input {
+      padding-right: 44px;
+    }
+
+    .eye-toggle {
+      position: absolute;
+      right: 4px; top: 50%;
+      transform: translateY(-50%);
+      width: 34px; height: 34px;
+      background: none;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .eye-toggle:hover {
+      background: #f1f5f9;
+      color: var(--text-secondary);
+    }
+
+    .forgot-row {
+      text-align: right;
+      margin-bottom: 20px;
+      margin-top: -4px;
+    }
+
+    .forgot-link {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--brand-accent);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .forgot-link:hover { text-decoration: underline; }
+
+    .submit-btn {
+      width: 100%;
+      height: 44px;
+      background: var(--text-primary);
+      border: none;
+      border-radius: var(--radius-sm);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .submit-btn:hover {
+      background: #1e293b;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+    }
+
+    /* Footer version */
+    .form-footer {
+      padding: 16px 32px;
+      text-align: center;
+      font-size: 11px;
+      font-family: 'JetBrains Mono', 'SF Mono', monospace;
+      color: #cbd5e1;
+    }
+
+    /* ═══════════════════════════════════════════
+       MOBILE HEADER
+       ═══════════════════════════════════════════ */
+    .mobile-header {
+      display: none;
+      background: var(--brand-bg);
+      padding: 20px 24px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mobile-header .orb-1 {
+      width: 200px; height: 200px;
+      top: -60px; right: -30px;
+      left: auto;
+      filter: blur(50px);
+    }
+
+    .mobile-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .mobile-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mobile-logo .cam-logo-mark { width: 26px; height: 26px; }
+
+    .mobile-logo-text {
+      font-size: 12px;
+      font-weight: 700;
+      color: #f1f5f9;
+      letter-spacing: 1.5px;
+    }
+
+    .mobile-lang {
+      font-size: 11px;
+      color: #94a3b8;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      padding: 4px 10px;
+      cursor: pointer;
+    }
+
+    .mobile-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: #f1f5f9;
+      position: relative;
+      z-index: 2;
+      letter-spacing: -0.3px;
+    }
+
+    /* ═══════════════════════════════════════════
+       RESPONSIVE
+       ═══════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      body { flex-direction: column; }
+      .brand-panel { display: none; }
+      .mobile-header { display: block; }
+
+      .form-panel { min-height: auto; }
+      .form-topbar { display: none; }
+
+      .form-center {
+        padding: 24px 20px;
+        align-items: flex-start;
+      }
+
+      .form-card {
+        max-width: 100%;
+        box-shadow: none;
+        background: transparent;
+        border: none;
+        padding: 0;
+        border-radius: 0;
+      }
+
+      .form-title { display: none; }
+
+      .sso-row { flex-direction: column; }
+      .sso-secondary { flex: none; width: 100%; }
+    }
+
+    @media (min-width: 1600px) {
+      .brand-headline { font-size: 44px; }
+      .brand-desc { font-size: 15px; max-width: 380px; }
+      .form-card { max-width: 440px; padding: 44px 40px; }
+    }
+
+    @media (min-width: 2400px) {
+      .brand-panel { padding: 56px 64px; }
+      .brand-headline { font-size: 50px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ MOBILE HEADER ═══ -->
+  <div class="mobile-header">
+    <div class="orb orb-1"></div>
+    <div class="mobile-top">
+      <div class="mobile-logo">
+        <span class="cam-logo-mark" role="img" aria-label="CAM"></span>
+        <span class="mobile-logo-text">CAM SYSTEM</span>
+      </div>
+      <button class="mobile-lang">EN</button>
+    </div>
+    <div class="mobile-title">Welcome back</div>
+  </div>
+
+  <!-- ═══ LEFT BRAND PANEL ═══ -->
+  <div class="brand-panel">
+    <div class="grid-bg"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="brand-top">
+      <div class="brand-logo">
+        <span class="cam-logo-mark" role="img" aria-label="CAM"></span>
+        <span class="logo-text">CAM SYSTEM</span>
+      </div>
+      <div class="region-badge">SG-PROD</div>
+    </div>
+
+    <div class="brand-center">
+      <h1 class="brand-headline">
+        The <em>Investment</em><br>
+        Management<br>
+        Platform for<br>
+        Digital Assets
+      </h1>
+      <p class="brand-desc">
+        Portfolio, risk, and data infrastructure powering $20 B+ AUM across
+        80+ institutional clients managing digital assets. Built for
+        quantitative and high-frequency trading with institutional-grade
+        data accuracy.
+      </p>
+      <div class="feature-row">
+        <span class="feature-pill"><span class="dot"></span> Multi-Exchange</span>
+        <span class="feature-pill"><span class="dot"></span> Risk Engine</span>
+        <span class="feature-pill"><span class="dot"></span> Real-time Data</span>
+      </div>
+    </div>
+
+    <div class="brand-bottom">
+      <div class="status-chip">
+        <span class="label">Local</span>
+        <span id="local-time">--:--:--</span>
+      </div>
+      <div class="status-chip">
+        <span class="label">Server</span>
+        <span id="server-time">--:--:--</span>
+      </div>
+      <div class="status-chip">
+        <span class="ping-dot"></span>
+        12 ms
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ RIGHT FORM PANEL ═══ -->
+  <div class="form-panel">
+    <div class="form-topbar">
+      <button class="lang-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        EN
+      </button>
+    </div>
+
+    <div class="form-center">
+      <div class="form-card">
+        <h2 class="form-title">Welcome back</h2>
+
+        <!-- SSO Primary -->
+        <button class="sso-primary" type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+          Sign in with SSO
+        </button>
+
+        <!-- SSO Secondary row -->
+        <div class="sso-row">
+          <button class="sso-secondary" type="button">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M6 12l-2 2 2 2M18 8l2 2-2 2M14 4l-4 16" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            AWS Cognito
+          </button>
+          <button class="sso-secondary" type="button">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#0891b2" stroke-width="1.8" fill="none"/>
+            </svg>
+            KeyCloak
+          </button>
+        </div>
+
+        <div class="divider"><span>or</span></div>
+
+        <!-- Email / Password -->
+        <form onsubmit="event.preventDefault();">
+          <div class="field-group">
+            <label class="field-label">Email or Username</label>
+            <input class="field-input" type="text" placeholder="email@institution.com" autocomplete="username" autofocus>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Password</label>
+            <div class="password-field">
+              <input class="field-input" id="pwd" type="password" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" autocomplete="current-password">
+              <button type="button" class="eye-toggle" onclick="togglePwd()">
+                <svg id="eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+                  <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+                  <line x1="1" y1="1" x2="23" y2="23"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="forgot-row">
+            <a class="forgot-link">Forgot password?</a>
+          </div>
+          <button type="submit" class="submit-btn">Sign in</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="form-footer">
+      CAM v2.260.0 &middot; <span id="utc-display"></span>
+    </div>
+  </div>
+
+  <script>
+    function togglePwd() {
+      const p = document.getElementById('pwd');
+      const i = document.getElementById('eye-icon');
+      if (p.type === 'password') {
+        p.type = 'text';
+        i.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+      } else {
+        p.type = 'password';
+        i.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>';
+      }
+    }
+
+    function tick() {
+      const now = new Date();
+      const f = d => String(d).padStart(2, '0');
+      document.getElementById('local-time').textContent =
+        f(now.getHours()) + ':' + f(now.getMinutes()) + ':' + f(now.getSeconds());
+      document.getElementById('server-time').textContent =
+        f(now.getUTCHours()) + ':' + f(now.getUTCMinutes()) + ':' + f(now.getUTCSeconds()) + ' UTC';
+      document.getElementById('utc-display').textContent =
+        'Server Time: ' + f(now.getUTCHours()) + ':' + f(now.getUTCMinutes()) + ':' + f(now.getUTCSeconds()) + ' UTC';
+    }
+    tick(); setInterval(tick, 1000);
+  </script>
+</body>
+</html>

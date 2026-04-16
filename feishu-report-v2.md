@@ -1,0 +1,207 @@
+# CAM 登录页竞品调研报告
+
+## 一、调研背景与方法
+
+### 调研目标
+为 CAM 登录页改版提供设计依据，通过分析行业标杆产品的登录页设计，提炼最佳实践，输出可落地的设计方案。
+
+### 调研方法论
+参考「审美四卡片」方法论：
+1. **最佳实践收集** — 先看高手怎么做
+2. **最佳实践池子** — 建一堆参照物反复对比打磨
+3. **原型 Demo** — 动手做出来
+4. **努力仿真** — 在真实屏幕尺寸下测试
+
+### 测试屏幕尺寸
+
+| 设备 | 分辨率 | DPR | 场景 |
+|------|--------|-----|------|
+| MacBook Air 13" | 1440×900 | 1x | 笔记本办公 |
+| 外接显示器 | 1920×1080 | 1x | 桌面办公 |
+| MacBook Pro 16" | 2560×1600 | 2x | 大屏笔记本 |
+| iPhone 14/15 | 390×844 | 3x | 手机访问 |
+
+---
+
+## 二、竞品选择（9 家 S/A 级）
+
+| 评级 | 竞品 | 行业 | 布局类型 |
+|------|------|------|---------|
+| S | Fireblocks | 机构数字资产托管 | 左右分栏 |
+| S | Deribit | 加密期权交易所 | 全暗色 + 右侧浮层 |
+| S | Enfusion (CWAN) | 投资管理 SaaS | 左右分栏（Keycloak） |
+| A | Coinbase | 全球头部加密交易所 | 全暗色 + 居中卡片 |
+| A | FalconX | 机构加密经纪 | 全暗色 + 居中卡片 |
+| A | Zero Hash | 加密基础设施 | Auth0 托管页 |
+| A | Datadog | 监控 SaaS | 背景纹理 + 居中表单 |
+| A | Salesforce | CRM | 品牌区上 + 表单区下 |
+| A | Workday | HR/财务企业软件 | 左右分栏 |
+
+> Wavebridge 和 Bequant 因无公开登录页或连接被拒，已跳过。
+
+---
+
+## 三、布局策略分类
+
+根据 9 家竞品截图分析，登录页的响应式策略归纳为 **4 种布局类型**：
+
+### 类型 A：左右分栏 → 移动端隐藏品牌区
+**代表**: Fireblocks (S), Workday (A), Enfusion (S)
+
+**桌面端**：左 33-50% 品牌区（深色/品牌色背景 + Logo + Slogan + 产品截图）+ 右侧白色表单区
+**手机端**：品牌区完全隐藏，仅保留白色表单区全屏展示，Logo 缩小至顶部
+
+**Fireblocks 桌面端**：
+<image token="Y773bM3UVo2YD0xixhJcjVQWnzh" width="1920" height="831" align="center"/>
+
+**Fireblocks 手机端** — 品牌区完全放弃，表单全屏，体验流畅：
+<image token="ORkfbf4yMoa2bOx9ZkEccSeDnpe" width="1170" height="2532" align="center"/>
+
+**Workday 桌面端**：
+<image token="Ehyrb8J9Rou8T9xM7IocNov4nef" width="1920" height="1080" align="center"/>
+
+**关键发现**:
+- Fireblocks 手机端完全放弃左侧品牌区，表单全屏，体验流畅
+- 分栏在大屏（2560）下品牌图有足够展示空间，1440 下图形被裁切
+- Workday 手机端同样隐藏右侧深蓝品牌区，仅保留表单
+
+### 类型 B：全暗色 + 居中卡片
+**代表**: Coinbase (A), FalconX (A), Deribit (S)
+
+**桌面端**：全黑/深蓝背景，居中窄卡片（~400px 宽），四周大量留白
+**手机端**：卡片拉满全宽（边距 16-24px），深色背景保留
+
+**Coinbase 桌面端**：
+<image token="BZptbvCVBo8HMkxvzsKcoxhTnAf" width="1920" height="1080" align="center"/>
+
+**Coinbase 手机端** — 去掉居中布局，改为左对齐全宽：
+<image token="NsgybMkAFoDpGUxighlcvgCAnLJ" width="1170" height="2532" align="center"/>
+
+**Deribit 桌面端**：
+<image token="HIfAb6Hydo4mpxx5EIec7OhHnza" width="1920" height="1080" align="center"/>
+
+**Deribit 手机端** — Cookie 弹窗严重遮挡表单（反面案例）：
+<image token="MfGobQSNnoxUvGxXjxvcogVDn9c" width="1170" height="2532" align="center"/>
+
+**关键发现**:
+- Coinbase 手机端去掉居中布局，改为左对齐全宽，标题置顶
+- Deribit 手机端 Cookie 弹窗严重遮挡表单（**反面案例！**）
+- 此类型在所有尺寸下天然适配，响应式成本最低
+
+### 类型 C：背景纹理 + 居中表单
+**代表**: Datadog (A)
+
+**桌面端**：低多边形纹理全屏背景，左侧大 Logo，右侧表单
+**手机端**：Logo 居中上移，表单全宽堆叠，纹理背景保留
+
+**Datadog 桌面端**：
+<image token="GmCpbAcLdouQSLxqcqEcmtmKnIg" width="1920" height="1080" align="center"/>
+
+**关键发现**:
+- Datadog 手机端增加了 App 引导条，是唯一对移动场景有专门优化的竞品
+- Footer 版本号在所有尺寸下都保留
+
+### 类型 D：品牌区上 + 表单区下（二段式）
+**代表**: Salesforce (A)
+
+**桌面端**：左 40% 白色表单 + 右 60% 品牌内容区
+**手机端**：顶部 Logo 区（蓝色背景）+ 下方纯白表单区堆叠
+
+**Salesforce 桌面端**：
+<image token="QZhrbah7eosHrYx1asfcKdofnyy" width="1920" height="1080" align="center"/>
+
+---
+
+## 四、跨尺寸设计要素对比
+
+| 设计元素 | 桌面端 | 手机端 | 最佳实践 |
+|---------|--------|--------|---------|
+| 分栏布局 | 品牌区 30-50% | 品牌区隐藏，表单全屏 | 桌面保持分栏，手机折叠为单栏 |
+| 表单卡片宽度 | 350-450px 固定 | 全宽 -32px padding | 桌面固定宽度，手机全宽 |
+| Logo 尺寸 | 120-180px | 80-100px 或居中放大 | 手机端缩小或重新布局 |
+| SSO 按钮 | 并排 2 列 | 堆叠为 1 列全宽 | 手机端改为垂直堆叠 |
+| 品牌背景图 | 可见（1920 最佳） | 隐藏或简化 | 1920 是最佳设计尺寸 |
+| Cookie 弹窗 | 底部小条 | 应为非侵入式 | 必须做小条 Banner |
+| 版本号 | 右下角小字 | Footer 居中 | 所有尺寸保持 |
+
+---
+
+## 五、竞品响应式评分
+
+| 竞品 | 桌面体验 | 大屏适配 | 手机适配 | 综合评分 |
+|------|---------|---------|---------|---------|
+| Fireblocks | S | A | S | **S** — 分栏→全屏切换丝滑 |
+| Coinbase | A | S | S | **S** — 全暗色天然适配 |
+| Datadog | A | A | A | **A** — App 引导条加分 |
+| Workday | A | A | A | **A** — 分栏隐藏干净 |
+| Deribit | S | A | C | **B** — Cookie 弹窗遮挡手机表单 |
+| Salesforce | B | B | A | **B** — 手机端二段式清晰 |
+| Enfusion | B | B | B | **B** — Keycloak 默认样式 |
+| Zero Hash | B | B | B | **B** — Auth0 默认样式 |
+| FalconX | A | A | C | **B** — 手机端下半屏空白过多 |
+
+---
+
+## 六、CAM 登录页设计建议
+
+### 推荐方案：Navy Split（左右分栏）+ 响应式折叠
+
+基于多尺寸分析，推荐采用 **类型 A（左右分栏）** 作为基础布局，参考 Fireblocks 的处理方式：
+
+### 桌面端（≥1025px）
+- 左 40% 深色品牌区：CAM Logo + Slogan + 节点网络动画 + 客户 Logo 墙
+- 右 60% 白色表单区：SSO 优先 + 邮密登录 + 合规标识 Footer
+- 表单卡片固定宽度 420px，垂直居中
+
+### 大屏（≥1920px）
+- 品牌区展示更完整的节点网络图形
+- 表单区留白更充裕，高级感增强
+
+### 手机端（≤768px）
+- 品牌区完全折叠，仅保留顶部小 Logo + 品牌色条
+- 表单全宽（padding 16px），SSO 按钮垂直堆叠
+- 参考 Fireblocks 手机端的处理方式
+
+### 响应式断点
+
+```
+@media (max-width: 768px)   → 手机：单栏全宽，隐藏品牌区
+@media (max-width: 1024px)  → 平板：可选保留简化品牌区
+@media (min-width: 1025px)  → 桌面：分栏布局，完整品牌区
+@media (min-width: 1920px)  → 大屏：品牌区内容完全展开
+```
+
+### 关键设计规则
+1. **表单永远可见** — 任何尺寸下表单都不需要滚动即可看到
+2. **品牌区可牺牲** — 手机端品牌区是第一个被隐藏的元素
+3. **Cookie 弹窗非侵入** — 底部小条 Banner，永远不遮挡表单
+4. **版本号全尺寸保留** — Footer 右下角始终显示版本号
+5. **SSO 按钮优先** — Enterprise SSO > Google/Microsoft > 邮密
+
+---
+
+## 七、CAM Demo 预览
+
+以下是基于调研结论制作的 CAM 登录页原型 Demo，已在 4 个真实屏幕尺寸下验证：
+
+### 桌面端 1920×1080
+<image token="TjxCbzq80o9yvvxbQnIcoeJenGg" width="1920" height="1080" align="center"/>
+
+### 笔记本 1440×900
+<image token="IL1DbhfdooejddxFT6bcC7S3nGb" width="1440" height="900" align="center"/>
+
+### 大屏 2560×1600
+<image token="OmDwbHIPAo2315xZ0gdcqnRNngb" width="5120" height="3200" align="center"/>
+
+### 手机端 390×844
+<image token="F7qrbBjSgooy36xXGBAcRjjNnHf" width="1170" height="2532" align="center"/>
+
+---
+
+## 八、总结
+
+CAM 登录页建议采用 **Navy Split 左右分栏方案**，核心要点：
+- **桌面端**：左侧深蓝品牌区（40%）+ 右侧白色表单区（60%），参考 Fireblocks
+- **手机端**：品牌区完全折叠，表单全屏，参考 Fireblocks 移动端
+- **SSO 优先**：Enterprise SSO 按钮置顶，Google/Microsoft 次之，邮密最后
+- **合规标识**：Footer 始终展示 SOC 2、ISO 27001、GDPR 标识和版本号

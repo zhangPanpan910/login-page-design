@@ -1,0 +1,1696 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CAM Login — Plan 3 (Version C) · Static demo (all screens)</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          'Inter',
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        min-height: 100vh;
+        display: flex;
+        -webkit-font-smoothing: antialiased;
+        background: #fff;
+      }
+
+      /* ═══ LEFT BRAND PANEL — #1e2d3d Navy ═══ */
+      .brand-panel {
+        width: 46%;
+        min-height: 100vh;
+        background: #1e2d3d;
+        display: flex;
+        flex-direction: column;
+        padding: 36px 48px 32px;
+        position: relative;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      /* Node network canvas */
+      .node-canvas {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        height: 300px;
+        pointer-events: none;
+      }
+
+      .brand-top {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 40px;
+      }
+
+      .brand-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+
+      .cam-logo-mark {
+        display: inline-block;
+        flex-shrink: 0;
+        width: 28px;
+        height: 28px;
+        background: var(--cam-icon-logo-gold) center / contain no-repeat;
+      }
+      .cam-logo-mark--navy {
+        background-image: var(--cam-icon-logo-navy);
+      }
+      .cam-logo-mark--brand {
+        width: 34px;
+        height: 34px;
+      }
+      .cam-logo-mark--mh {
+        width: 28px;
+        height: 28px;
+      }
+      .demo-rail__label {
+        display: inline-flex !important;
+        align-items: center;
+        gap: 6px;
+        font-size: 9px;
+        font-weight: 600;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 0.35px;
+        padding: 3px 0;
+      }
+      .demo-rail__label::before {
+        content: '';
+        width: 12px;
+        height: 10px;
+        flex-shrink: 0;
+        opacity: 0.72;
+        background:
+          linear-gradient(currentColor, currentColor) 0 0 / 100% 2px no-repeat,
+          linear-gradient(currentColor, currentColor) 0 4px / 100% 2px no-repeat,
+          linear-gradient(currentColor, currentColor) 0 8px / 70% 2px no-repeat;
+        color: #94a3b8;
+        border-radius: 1px;
+      }
+      .lang-btn.lang-btn--demo-icon {
+        position: relative;
+        padding-left: 26px;
+      }
+      .lang-btn.lang-btn--demo-icon::before {
+        content: '';
+        position: absolute;
+        left: 6px;
+        top: 50%;
+        width: 12px;
+        height: 12px;
+        transform: translateY(-50%);
+        border: 1.5px solid currentColor;
+        border-radius: 50%;
+        opacity: 0.75;
+        box-shadow:
+          inset 0 0 0 1px rgba(255, 255, 255, 0.35),
+          -4px 0 0 -3px currentColor;
+      }
+      .brand-logo-text {
+        font-size: 18px;
+        font-weight: 700;
+        color: #ffffff;
+        letter-spacing: 0.5px;
+      }
+
+      .region-badge {
+        font-size: 11px;
+        font-family: 'SF Mono', 'JetBrains Mono', monospace;
+        color: rgba(255, 255, 255, 0.5);
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 6px;
+        padding: 4px 12px;
+        letter-spacing: 0.5px;
+      }
+
+      .brand-center {
+        position: relative;
+        z-index: 2;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-top: 40px;
+      }
+
+      .brand-headline {
+        font-size: 36px;
+        font-weight: 800;
+        color: #ffffff;
+        line-height: 1.2;
+        letter-spacing: -0.5px;
+        margin-bottom: 20px;
+      }
+
+      .brand-headline em {
+        font-style: normal;
+        color: #4dabff;
+      }
+
+      .brand-desc {
+        font-size: 14.5px;
+        color: rgba(255, 255, 255, 0.4);
+        line-height: 1.7;
+        max-width: 360px;
+      }
+
+      /* Logo wall */
+      .logo-wall {
+        position: relative;
+        z-index: 2;
+        margin-top: auto;
+      }
+
+      .logo-wall-label {
+        font-size: 9px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.2);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 14px;
+      }
+
+      .logo-wall-items {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .logo-chip {
+        font-size: 11px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.45);
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 6px;
+        padding: 6px 14px;
+        letter-spacing: 0.3px;
+      }
+
+      /* ═══ RIGHT FORM PANEL — 与 v3/login 一致：整栏白底 + form-body，无居中卡片壳 ═══ */
+      .form-panel {
+        flex: 1;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background: #ffffff;
+        overflow-y: auto;
+        position: relative;
+      }
+
+      .form-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 44px 48px;
+        min-height: 0;
+        width: 100%;
+      }
+
+      .form-body > * {
+        width: 100%;
+      }
+
+      /* ── 方案3 Preview条 + 多场景（与方案1一致，右侧为整栏 form-body）── */
+      :root {
+        --primary-blue: #1677ff;
+        --cam-icon-logo-gold: url("data:image/svg+xml,%3Csvg%20width%3D%2228%22%20height%3D%2228%22%20viewBox%3D%220%200%2028%2028%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%20%3Crect%20width%3D%2228%22%20height%3D%2228%22%20rx%3D%225.5296%22%20fill%3D%22%23F1BC37%22%2F%3E%20%3Cg%20style%3D%22mix-blend-mode%3Aluminosity%22%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M14.0615%204.97233C13.8275%204.83312%2013.5359%204.83417%2013.3029%204.97506L6.2082%209.26602C6.04259%209.36618%205.94141%209.54564%205.94141%209.73918V18.478C5.94141%2018.6716%206.04259%2018.851%206.2082%2018.9512L13.2876%2023.2329C13.5286%2023.3786%2013.8316%2023.3743%2014.0683%2023.2219L21.1678%2018.6502C21.3259%2018.5484%2021.4214%2018.3733%2021.4214%2018.1853V9.66607C21.4214%209.47111%2021.3187%209.29056%2021.1512%209.19087L14.0615%204.97233ZM10.2876%2012.141L12.7609%2010.6452L15.2784%2012.141V19.0817L12.2424%2017.2597V13.2987L10.2876%2012.141Z%22%20fill%3D%22url%28%23paint0_linear_8697_2304%29%22%2F%3E%20%3Cmask%20id%3D%22mask0_8697_2304%22%20style%3D%22mask-type%3Aluminance%22%20maskUnits%3D%22userSpaceOnUse%22%20x%3D%225%22%20y%3D%224%22%20width%3D%2217%22%20height%3D%2220%22%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M14.0615%204.97233C13.8275%204.83312%2013.5359%204.83417%2013.3029%204.97506L6.2082%209.26602C6.04259%209.36618%205.94141%209.54564%205.94141%209.73918V18.478C5.94141%2018.6716%206.04259%2018.851%206.2082%2018.9512L13.2876%2023.2329C13.5286%2023.3786%2013.8316%2023.3743%2014.0683%2023.2219L21.1678%2018.6502C21.3259%2018.5484%2021.4214%2018.3733%2021.4214%2018.1853V9.66607C21.4214%209.47111%2021.3187%209.29056%2021.1512%209.19087L14.0615%204.97233ZM10.2876%2012.141L12.7609%2010.6452L15.2784%2012.141V19.0817L12.2424%2017.2597V13.2987L10.2876%2012.141Z%22%20fill%3D%22white%22%2F%3E%20%3C%2Fmask%3E%20%3Cg%20mask%3D%22url%28%23mask0_8697_2304%29%22%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M8.26172%208.00421L15.3068%2012.1543L18.3361%2010.9524L21.9205%209.53035L13.3663%204.01807L8.26172%208.00421Z%22%20fill%3D%22url%28%23paint1_linear_8697_2304%29%22%2F%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M5.48828%2018.9135L12.2449%2017.2607L18.1566%2020.8339L13.3556%2024.8079L5.48828%2018.9135Z%22%20fill%3D%22url%28%23paint2_linear_8697_2304%29%22%2F%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M15.2812%2012.1457V22.5895C15.2812%2022.5895%2021.8093%2021.0611%2022.325%2019.6039C22.8407%2018.1467%2023.2767%208.29883%2023.2767%208.29883L15.2812%2012.1457Z%22%20fill%3D%22url%28%23paint3_linear_8697_2304%29%22%2F%3E%20%3C%2Fg%3E%20%3C%2Fg%3E%20%3Cdefs%3E%20%3ClinearGradient%20id%3D%22paint0_linear_8697_2304%22%20x1%3D%2211.3772%22%20y1%3D%226.03192%22%20x2%3D%223.36429%22%20y2%3D%228.5616%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%20%3Cstop%20stop-color%3D%22%23FFE398%22%2F%3E%20%3Cstop%20offset%3D%220.275018%22%20stop-color%3D%22%23FFF2CE%22%2F%3E%20%3Cstop%20offset%3D%220.557013%22%20stop-color%3D%22white%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22white%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22paint1_linear_8697_2304%22%20x1%3D%2221.1116%22%20y1%3D%2211.5847%22%20x2%3D%2220.6517%22%20y2%3D%224.5888%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%20%3Cstop%20stop-color%3D%22%23FFEAB0%22%2F%3E%20%3Cstop%20offset%3D%220.28277%22%20stop-color%3D%22white%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22white%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22paint2_linear_8697_2304%22%20x1%3D%2219.397%22%20y1%3D%2219.156%22%20x2%3D%2213.321%22%20y2%3D%2211.94%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%20%3Cstop%20stop-color%3D%22%23FFE59E%22%2F%3E%20%3Cstop%20offset%3D%220.262145%22%20stop-color%3D%22%23FFFDF9%22%2F%3E%20%3Cstop%20offset%3D%220.50842%22%20stop-color%3D%22white%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23FFEBB6%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22paint3_linear_8697_2304%22%20x1%3D%2217.3667%22%20y1%3D%222.61127%22%20x2%3D%225.85164%22%20y2%3D%229.18464%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%20%3Cstop%20stop-color%3D%22%23FFE6A0%22%2F%3E%20%3Cstop%20offset%3D%220.481945%22%20stop-color%3D%22white%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22white%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22white%22%2F%3E%20%3C%2FlinearGradient%3E%20%3C%2Fdefs%3E%20%3C%2Fsvg%3E");
+        --cam-icon-logo-navy: url("data:image/svg+xml,%3Csvg%20width%3D%2228%22%20height%3D%2228%22%20viewBox%3D%220%200%2028%2028%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%20%3Crect%20width%3D%2228%22%20height%3D%2228%22%20rx%3D%225.5296%22%20fill%3D%22%23091E42%22%2F%3E%20%3Cg%20style%3D%22mix-blend-mode%3Aluminosity%22%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M14.06%204.97258C13.8261%204.83336%2013.5344%204.83441%2013.3015%204.97531L6.20673%209.26627C6.04113%209.36643%205.93994%209.54588%205.93994%209.73942V18.4783C5.93994%2018.6718%206.04113%2018.8513%206.20673%2018.9514L13.2861%2023.2331C13.5271%2023.3789%2013.8301%2023.3746%2014.0669%2023.2221L21.1664%2018.6504C21.3244%2018.5486%2021.4199%2018.3735%2021.4199%2018.1855V9.66631C21.4199%209.47135%2021.3173%209.2908%2021.1497%209.19111L14.06%204.97258ZM10.2862%2012.1412L12.7595%2010.6454L15.2769%2012.1412V19.0819L12.241%2017.2599V13.2989L10.2862%2012.1412Z%22%20fill%3D%22url%28%23paint0_linear_3375_722%29%22%2F%3E%20%3Cmask%20id%3D%22mask0_3375_722%22%20style%3D%22mask-type%3Aluminance%22%20maskUnits%3D%22userSpaceOnUse%22%20x%3D%225%22%20y%3D%224%22%20width%3D%2217%22%20height%3D%2220%22%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M14.06%204.97258C13.8261%204.83336%2013.5344%204.83441%2013.3015%204.97531L6.20673%209.26627C6.04113%209.36643%205.93994%209.54588%205.93994%209.73942V18.4783C5.93994%2018.6718%206.04113%2018.8513%206.20673%2018.9514L13.2861%2023.2331C13.5271%2023.3789%2013.8301%2023.3746%2014.0669%2023.2221L21.1664%2018.6504C21.3244%2018.5486%2021.4199%2018.3735%2021.4199%2018.1855V9.66631C21.4199%209.47135%2021.3173%209.2908%2021.1497%209.19111L14.06%204.97258ZM10.2862%2012.1412L12.7595%2010.6454L15.2769%2012.1412V19.0819L12.241%2017.2599V13.2989L10.2862%2012.1412Z%22%20fill%3D%22white%22%2F%3E%20%3C%2Fmask%3E%20%3Cg%20mask%3D%22url%28%23mask0_3375_722%29%22%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M8.25928%208.00445L15.3043%2012.1546L18.3337%2010.9527L21.9181%209.5306L13.3639%204.01831L8.25928%208.00445Z%22%20fill%3D%22url%28%23paint1_linear_3375_722%29%22%2F%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M5.48779%2018.9138L12.2444%2017.261L18.1561%2020.8341L13.3551%2024.8081L5.48779%2018.9138Z%22%20fill%3D%22url%28%23paint2_linear_3375_722%29%22%2F%3E%20%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M15.2793%2012.1457V22.5895C15.2793%2022.5895%2021.8074%2021.0611%2022.3231%2019.6039C22.8388%2018.1467%2023.2747%208.29883%2023.2747%208.29883L15.2793%2012.1457Z%22%20fill%3D%22url%28%23paint3_linear_3375_722%29%22%2F%3E%20%3C%2Fg%3E%20%3C%2Fg%3E%20%3Cdefs%3E%20%3ClinearGradient%20id%3D%22paint0_linear_3375_722%22%20x1%3D%2211.3758%22%20y1%3D%226.03216%22%20x2%3D%223.36282%22%20y2%3D%228.56184%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%20%3Cstop%20stop-color%3D%22%23FFE398%22%2F%3E%20%3Cstop%20offset%3D%220.275018%22%20stop-color%3D%22%23FFF2CE%22%2F%3E%20%3Cstop%20offset%3D%220.557013%22%20stop-color%3D%22white%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22white%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22paint1_linear_3375_722%22%20x1%3D%2221.1091%22%20y1%3D%2211.5849%22%20x2%3D%2220.6493%22%20y2%3D%224.58904%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%20%3Cstop%20stop-color%3D%22%23FFEAB0%22%2F%3E%20%3Cstop%20offset%3D%220.28277%22%20stop-color%3D%22white%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22white%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22paint2_linear_3375_722%22%20x1%3D%2219.3966%22%20y1%3D%2219.1562%22%20x2%3D%2213.3206%22%20y2%3D%2211.9402%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%20%3Cstop%20stop-color%3D%22%23FFE59E%22%2F%3E%20%3Cstop%20offset%3D%220.262145%22%20stop-color%3D%22%23FFFDF9%22%2F%3E%20%3Cstop%20offset%3D%220.50842%22%20stop-color%3D%22white%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23FFEBB6%22%2F%3E%20%3C%2FlinearGradient%3E%20%3ClinearGradient%20id%3D%22paint3_linear_3375_722%22%20x1%3D%2217.3647%22%20y1%3D%222.61127%22%20x2%3D%225.84969%22%20y2%3D%229.18464%22%20gradientUnits%3D%22userSpaceOnUse%22%3E%20%3Cstop%20stop-color%3D%22%23FFE6A0%22%2F%3E%20%3Cstop%20offset%3D%220.481945%22%20stop-color%3D%22white%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22white%22%2F%3E%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22white%22%2F%3E%20%3C%2FlinearGradient%3E%20%3C%2Fdefs%3E%20%3C%2Fsvg%3E");
+      }
+
+      body.layout-dev-scene {
+        height: 100vh;
+        overflow: hidden;
+      }
+      body.layout-dev-scene .mobile-header-v3 {
+        flex-shrink: 0;
+      }
+      body.layout-dev-scene .form-panel {
+        overflow: hidden;
+        min-height: 0;
+      }
+      body.layout-dev-scene .form-body {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .form-topbar {
+        padding: 6px 20px 8px;
+        background: rgba(255, 255, 255, 0.95);
+        border-bottom: 1px solid #e8edf2;
+        flex-shrink: 0;
+      }
+      .form-topbar__inner {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 10px 14px;
+        flex-wrap: wrap;
+      }
+      .form-topbar .demo-rail {
+        flex: 1;
+        min-width: 0;
+        margin: 0;
+        padding: 0;
+        border: none;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px 8px;
+      }
+      .demo-rail__chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        flex: 1;
+        min-width: 140px;
+      }
+      .demo-chip {
+        font-size: 10px;
+        font-weight: 500;
+        color: #64748b;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 999px;
+        padding: 2px 8px;
+        line-height: 1.35;
+        cursor: pointer;
+        font-family: inherit;
+        transition: border-color 0.12s, background 0.12s, color 0.12s;
+      }
+      .demo-chip:hover {
+        border-color: #cbd5e1;
+        color: #0f172a;
+        background: #f1f5f9;
+      }
+      .demo-chip.is-active {
+        background: #eff6ff;
+        border-color: #93c5fd;
+        color: #1d4ed8;
+        font-weight: 600;
+      }
+      .form-topbar .lang-btn {
+        font-size: 11px;
+        font-weight: 500;
+        color: #64748b;
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        padding: 4px 8px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        flex-shrink: 0;
+        font-family: inherit;
+      }
+      .form-topbar .lang-btn:hover {
+        color: #1677ff;
+        border-color: #93c5fd;
+      }
+
+      .scene {
+        display: none;
+        width: 100%;
+      }
+      .scene.is-visible {
+        display: block;
+      }
+
+      .form-body.form-body--init,
+      .form-body.form-body--dev {
+        align-items: center;
+      }
+      .form-body.form-body--init > .scene {
+        max-width: 560px;
+      }
+      .form-body.form-body--dev > .scene {
+        max-width: 720px;
+      }
+
+      .form-sub {
+        font-size: 13px;
+        color: #6b7280;
+        line-height: 1.55;
+      }
+
+      .fp-steps--init4 .fp-step__label {
+        white-space: normal;
+        text-align: center;
+        max-width: 92px;
+        line-height: 1.3;
+        font-size: 11px;
+      }
+      .fp-steps--init4 .fp-step__line {
+        margin-left: 2px;
+        margin-right: 2px;
+      }
+
+      .init-ga-section { margin-bottom: 20px; }
+      .init-ga-step-title {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #0f172a;
+        margin-bottom: 7px;
+      }
+      .init-ga-step-num {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #e8f4ff;
+        color: #1677ff;
+        font-size: 10px;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+      .init-ga-body {
+        font-size: 12.5px;
+        color: #6b7280;
+        line-height: 1.6;
+        margin-bottom: 8px;
+      }
+      .init-ga-store-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+      .init-ga-store-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 40px;
+        padding: 0 16px;
+        font-size: 13px;
+        font-weight: 600;
+        border-radius: 6px;
+        text-decoration: none;
+        font-family: inherit;
+        cursor: pointer;
+        border: none;
+      }
+      .init-ga-store-btn--primary { background: #1677ff; color: #fff; }
+      .init-ga-store-btn--primary:hover { background: #4096ff; }
+      .init-ga-store-btn--success { background: #52c41a; color: #fff; }
+      .init-ga-store-btn--success:hover { background: #73d13d; }
+      .init-ga-warn-box {
+        background: #fffbeb;
+        border: 1px solid #fde68a;
+        border-radius: 8px;
+        padding: 12px 14px;
+        margin-bottom: 8px;
+      }
+      .init-ga-warn-header {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        margin-bottom: 7px;
+      }
+      .init-ga-warn-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #f59e0b;
+        flex-shrink: 0;
+      }
+      .init-ga-warn-title {
+        font-size: 12.5px;
+        font-weight: 600;
+        color: #92400e;
+      }
+      .init-ga-warn-body {
+        font-size: 12px;
+        color: #78350f;
+        line-height: 1.6;
+      }
+      .init-ga-qr-row {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        margin-top: 8px;
+      }
+      .init-ga-qr-placeholder {
+        width: 88px;
+        height: 88px;
+        flex-shrink: 0;
+        background: #fafafa;
+        border: 1px dashed #d9d9d9;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 11px;
+        color: #9ca3af;
+        line-height: 1.35;
+        padding: 8px;
+        box-sizing: border-box;
+      }
+      .init-ga-qr-right { flex: 1; min-width: 0; }
+      .init-ga-secret-label {
+        font-size: 11px;
+        color: #9ca3af;
+        margin-bottom: 5px;
+      }
+      .init-ga-secret-box {
+        background: #f8f9fa;
+        border: 1px solid #e8e8e8;
+        border-radius: 6px;
+        padding: 0 4px 0 10px;
+        font-size: 11.5px;
+        font-family: ui-monospace, "JetBrains Mono", monospace;
+        color: #374151;
+        display: flex;
+        align-items: center;
+        min-height: 40px;
+        gap: 6px;
+      }
+      .init-ga-secret-text {
+        flex: 1;
+        word-break: break-all;
+        line-height: 1.4;
+        padding: 6px 0;
+      }
+      .init-ga-copy-btn {
+        flex-shrink: 0;
+        height: 40px;
+        padding: 0 10px;
+        background: none;
+        border: none;
+        font-size: 12px;
+        font-weight: 600;
+        color: #1677ff;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .init-ga-copy-btn:hover { color: #4096ff; }
+      .init-ga-field-label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 6px;
+        display: block;
+      }
+      .init-ga-next {
+        width: 100%;
+        height: 40px;
+        margin-top: 4px;
+        background: #1677ff;
+        border: none;
+        border-radius: 6px;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
+        font-family: inherit;
+        cursor: pointer;
+      }
+      .init-ga-next:hover { background: #4096ff; }
+
+      .email-row-dev {
+        display: flex;
+        align-items: stretch;
+        gap: 0;
+      }
+      .email-row-dev .field-input-email {
+        flex: 1;
+        border-radius: 8px 0 0 8px;
+        border-right: none;
+      }
+      .email-row-dev select.field-input-suffix {
+        width: 200px;
+        max-width: 42%;
+        flex-shrink: 0;
+        height: 46px;
+        border-radius: 0 8px 8px 0;
+        background: #f9fafb;
+        cursor: pointer;
+        appearance: auto;
+      }
+
+      .dev-info-box {
+        background: #eff6ff;
+        border: 1px solid #bfdbfe;
+        border-radius: 8px;
+        padding: 10px 14px;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        font-size: 12.5px;
+        color: #1e40af;
+        line-height: 1.6;
+        margin-top: 8px;
+      }
+      .dev-info-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #1677ff;
+        flex-shrink: 0;
+        margin-top: 4px;
+      }
+      .dev-warn-box {
+        background: #fffbeb;
+        border: 1px solid #fde68a;
+        border-radius: 8px;
+        padding: 12px 14px;
+        margin-top: 12px;
+      }
+      .dev-warn-header {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        margin-bottom: 7px;
+      }
+      .dev-warn-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #f59e0b;
+        flex-shrink: 0;
+      }
+      .dev-warn-title {
+        font-size: 12.5px;
+        font-weight: 600;
+        color: #92400e;
+      }
+      .dev-warn-body {
+        font-size: 12px;
+        color: #78350f;
+        line-height: 1.6;
+        margin-bottom: 4px;
+      }
+      .dev-warn-list {
+        margin: 4px 0 4px 16px;
+        padding: 0;
+        font-size: 11.5px;
+        color: #78350f;
+        line-height: 1.7;
+      }
+      .dev-warn-list li { margin-bottom: 4px; }
+      .dev-warn-list strong { font-weight: 600; color: #92400e; }
+      .dev-warn-danger {
+        font-size: 12px;
+        font-weight: 600;
+        color: #b45309;
+        margin-top: 8px;
+      }
+
+      .fp-steps {
+        display: flex;
+        align-items: center;
+        margin-bottom: 28px;
+      }
+      .fp-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+      }
+      .fp-step__dot {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: 2px solid #e8e8e8;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 700;
+        color: #bfbfbf;
+      }
+      .fp-step.active .fp-step__dot {
+        border-color: var(--primary-blue);
+        color: var(--primary-blue);
+      }
+      .fp-step.done .fp-step__dot {
+        background: var(--primary-blue);
+        border-color: var(--primary-blue);
+        color: #fff;
+      }
+      .fp-step__label {
+        font-size: 12px;
+        color: #bfbfbf;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .fp-step.active .fp-step__label {
+        color: var(--primary-blue);
+        font-weight: 600;
+      }
+      .fp-step.done .fp-step__label { color: var(--primary-blue); }
+      .fp-step__line {
+        flex: 1;
+        height: 1px;
+        background: #e8e8e8;
+        margin: 0 8px 14px;
+      }
+      .fp-step__line.done { background: var(--primary-blue); }
+
+      .fp-sent { text-align: center; padding: 8px 0; }
+      .fp-sent__icon {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: #eff6ff;
+        border: 2px solid #bfdbfe;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 14px;
+        color: var(--primary-blue);
+      }
+      .fp-email {
+        font-size: 14px;
+        font-weight: 600;
+        color: #0f172a;
+        margin-top: 8px;
+      }
+
+      .back-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        margin-top: 24px;
+        font-size: 13px;
+        color: #64748b;
+        cursor: pointer;
+      }
+      .back-row:hover { color: var(--primary-blue); }
+
+      .token-error { text-align: center; padding: 16px 0 8px; }
+      .token-error__icon {
+        margin-bottom: 12px;
+        display: flex;
+        justify-content: center;
+      }
+      .token-error__icon--warn { color: #f59e0b; }
+      .token-error__icon--err { color: #ef4444; }
+
+      .code-row { display: flex; gap: 8px; }
+      .code-row .field-input { flex: 1; }
+      .send-code-btn {
+        height: 46px;
+        padding: 0 16px;
+        background: var(--primary-blue);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        white-space: nowrap;
+        font-family: inherit;
+      }
+      textarea.field-input {
+        height: auto;
+        min-height: 88px;
+        padding: 10px 14px;
+        resize: vertical;
+      }
+
+      .forgot-link {
+        background: none;
+        border: none;
+        font-family: inherit;
+        cursor: pointer;
+      }
+
+      .mobile-header-v3 {
+        display: none;
+        background: #1e2d3d;
+        padding: 20px 24px 24px;
+        position: relative;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+      .mobile-header-v3 .mobile-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+      }
+      .mobile-title-v3 {
+        font-size: 22px;
+        font-weight: 700;
+        color: #f0f6fc;
+        margin-bottom: 3px;
+      }
+      .mobile-sub-v3 {
+        font-size: 12px;
+        color: #8eaabf;
+        line-height: 1.5;
+      }
+
+      .form-title {
+        font-size: 26px;
+        font-weight: 700;
+        color: #0f172a;
+        margin-bottom: 4px;
+        letter-spacing: -0.3px;
+      }
+
+      .form-subtitle {
+        font-size: 13px;
+        color: #6b7280;
+        margin-bottom: 22px;
+      }
+
+      /* SSO buttons */
+      .sso-primary {
+        width: 100%;
+        height: 48px;
+        background: #ffffff;
+        border: 1.5px solid #e5e7eb;
+        border-radius: 10px;
+        color: #1f2937;
+        font-size: 14px;
+        font-weight: 600;
+        font-family: inherit;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        margin-bottom: 10px;
+        transition: all 0.2s;
+      }
+      .sso-primary:hover {
+        border-color: #1677ff;
+        color: #1677ff;
+        box-shadow: 0 2px 8px rgba(22, 119, 255, 0.08);
+      }
+
+      .sso-row {
+        display: flex;
+        gap: 8px;
+      }
+
+      .sso-secondary {
+        flex: 1;
+        height: 44px;
+        background: #ffffff;
+        border: 1.5px solid #e5e7eb;
+        border-radius: 10px;
+        color: #4b5563;
+        font-size: 13px;
+        font-weight: 500;
+        font-family: inherit;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        transition: all 0.15s;
+      }
+      .sso-secondary:hover {
+        border-color: #d1d5db;
+        background: #f9fafb;
+        color: #1f2937;
+      }
+
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 28px 0 22px;
+      }
+      .divider::before,
+      .divider::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: #e5e7eb;
+      }
+      .divider span {
+        font-size: 13px;
+        color: #9ca3af;
+        font-weight: 400;
+      }
+
+      /* Inputs */
+      .field-group {
+        margin-bottom: 18px;
+      }
+
+      .field-label {
+        font-size: 13px;
+        font-weight: 500;
+        color: #374151;
+        margin-bottom: 6px;
+        display: block;
+      }
+
+      .field-input {
+        width: 100%;
+        height: 46px;
+        border: 1.5px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 0 14px;
+        font-size: 14px;
+        font-family: inherit;
+        color: #111827;
+        background: #fff;
+        outline: none;
+        transition: all 0.2s;
+      }
+      .field-input:focus {
+        border-color: #1677ff;
+        box-shadow: 0 0 0 3px rgba(22, 119, 255, 0.08);
+      }
+      .field-input::placeholder {
+        color: #c4c8cf;
+      }
+
+      .password-field {
+        position: relative;
+      }
+      .password-field .field-input {
+        padding-right: 44px;
+      }
+
+      .eye-toggle {
+        position: absolute;
+        right: 4px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 36px;
+        height: 36px;
+        background: none;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        color: #9ca3af;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .eye-toggle:hover {
+        color: #6b7280;
+        background: #f3f4f6;
+      }
+
+      .forgot-row {
+        text-align: right;
+        margin-bottom: 24px;
+        margin-top: -6px;
+      }
+      .forgot-link {
+        font-size: 13px;
+        font-weight: 500;
+        color: #1677ff;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .forgot-link:hover {
+        color: #4096ff;
+      }
+
+      .submit-btn {
+        width: 100%;
+        height: 48px;
+        background: #1677ff;
+        border: none;
+        border-radius: 10px;
+        color: #fff;
+        font-size: 15px;
+        font-weight: 600;
+        font-family: inherit;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .submit-btn:hover {
+        background: #4096ff;
+        box-shadow: 0 4px 16px rgba(22, 119, 255, 0.25);
+      }
+
+      /* Compliance footer */
+      .form-footer {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 48px;
+        border-top: 1px solid #f3f4f6;
+        background: #fff;
+      }
+
+      .compliance-badges {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+      }
+
+      .compliance-item {
+        font-size: 11px;
+        font-family: 'SF Mono', 'JetBrains Mono', monospace;
+        color: #9ca3af;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .compliance-check {
+        color: #22c55e;
+        font-size: 12px;
+      }
+
+      .operational {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        font-family: 'SF Mono', 'JetBrains Mono', monospace;
+        color: #9ca3af;
+      }
+
+      .op-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #22c55e;
+        box-shadow: 0 0 6px rgba(34, 197, 94, 0.4);
+      }
+
+      /* ═══ Responsive ═══ */
+      @media (max-width: 768px) {
+        body {
+          flex-direction: column;
+        }
+        .brand-panel {
+          display: none;
+        }
+        .form-panel {
+          min-height: 100vh;
+        }
+        .form-topbar {
+          padding: 12px 16px 14px;
+        }
+        .form-topbar__inner {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .form-topbar .lang-btn {
+          align-self: flex-end;
+        }
+        .form-body {
+          padding: 20px 22px 32px;
+          justify-content: flex-start;
+        }
+        .form-title {
+          margin-bottom: 4px;
+        }
+        .scene-title--desktop-only,
+        .scene-sub--desktop-only {
+          display: none;
+        }
+        .demo-rail__chips { gap: 3px; min-width: 0; }
+        .demo-chip { font-size: 9.5px; padding: 2px 6px; }
+        .demo-rail__label { font-size: 8.5px; }
+        .fp-steps--init4 .fp-step__label { max-width: 64px; font-size: 10px; }
+        .fp-steps--init4 .fp-step__line { margin-left: 0; margin-right: 0; }
+        .mobile-header-v3 { display: block; }
+        .form-footer {
+          padding: 16px 22px;
+          flex-wrap: wrap;
+          gap: 12px;
+        }
+
+        .mh-left {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+        /* mh: see .cam-logo-mark--mh */
+        .mh-text {
+          font-size: 14px;
+          font-weight: 700;
+          color: #fff;
+        }
+        .mh-region {
+          font-size: 10px;
+          color: rgba(255, 255, 255, 0.5);
+          background: rgba(255, 255, 255, 0.08);
+          border: none;
+          border-radius: 4px;
+          padding: 4px 8px;
+        }
+
+        .sso-row {
+          flex-direction: column;
+        }
+        .sso-secondary {
+          flex: none;
+          width: 100%;
+        }
+      }
+
+      @media (min-width: 769px) {
+        .mobile-header-v3 {
+          display: none !important;
+        }
+      }
+
+      @media (min-width: 1600px) {
+        .brand-headline {
+          font-size: 42px;
+        }
+        .brand-desc {
+          font-size: 15px;
+          max-width: 400px;
+        }
+        .brand-panel {
+          padding: 40px 56px 36px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mobile-header-v3">
+      <div class="mobile-top">
+        <div class="mh-left">
+          <span class="cam-logo-mark cam-logo-mark--mh" role="img" aria-label="CAM"></span>
+          <span class="mh-text">CAM</span>
+        </div>
+        <span class="mh-region">AP-EAST-1</span>
+      </div>
+      <div class="mobile-title-v3" id="mobileTitle">Welcome to CAM</div>
+      <div class="mobile-sub-v3" id="mobileSub" style="display: none"></div>
+    </div>
+
+    <!-- ═══ LEFT BRAND ═══ -->
+    <div class="brand-panel">
+      <div class="brand-top">
+        <div class="brand-logo">
+          <span class="cam-logo-mark cam-logo-mark--brand" role="img" aria-label="CAM"></span>
+          <span class="brand-logo-text">CAM</span>
+        </div>
+        <div class="region-badge">AP-EAST-1</div>
+      </div>
+
+      <canvas class="node-canvas" id="nodeCanvas"></canvas>
+
+      <div class="brand-center">
+        <h1 class="brand-headline">
+          The
+          <em>Investment</em>
+          <br />
+          Management
+          <br />
+          Platform for Digital
+          <br />
+          Assets
+        </h1>
+        <p class="brand-desc">
+          Portfolio, risk, and data infrastructure powering $20B+ AUM across
+          80+ institutional clients managing digital assets. Built for
+          quantitative and high-frequency trading with institutional-grade
+          data accuracy.
+        </p>
+      </div>
+
+      <div class="logo-wall">
+        <div class="logo-wall-label">Trusted by leading institutions</div>
+        <div class="logo-wall-items">
+          <span class="logo-chip">HSBC</span>
+          <span class="logo-chip">JPMorgan</span>
+          <span class="logo-chip">Fidelity</span>
+          <span class="logo-chip">DBS</span>
+          <span class="logo-chip">Nomura</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ RIGHT: full-width v3 layout + Plan 1 preview rail ═══ -->
+    <div class="form-panel">
+      <div class="form-topbar">
+        <div class="form-topbar__inner">
+          <div class="demo-rail">
+            <span class="demo-rail__label">Preview</span>
+            <div class="demo-rail__chips" role="tablist" aria-label="Screen preview">
+              <button type="button" class="demo-chip is-active" data-scene="login" role="tab">Sign in</button>
+              <button type="button" class="demo-chip" data-scene="forget1" role="tab">Forgot 1</button>
+              <button type="button" class="demo-chip" data-scene="forget2" role="tab">Forgot 2</button>
+              <button type="button" class="demo-chip" data-scene="ga" role="tab">GA</button>
+              <button type="button" class="demo-chip" data-scene="token-expired" role="tab">Expired</button>
+              <button type="button" class="demo-chip" data-scene="token-fail" role="tab">Verification failed</button>
+              <button type="button" class="demo-chip" data-scene="first-login" role="tab">Setup 1</button>
+              <button type="button" class="demo-chip" data-scene="first-login-2" role="tab">Setup 2</button>
+              <button type="button" class="demo-chip" data-scene="first-login-3" role="tab">Setup 3</button>
+              <button type="button" class="demo-chip" data-scene="first-login-4" role="tab">Setup 4</button>
+              <button type="button" class="demo-chip" data-scene="dev" role="tab">Dev</button>
+            </div>
+          </div>
+          <button type="button" class="lang-btn lang-btn--demo-icon" title="Demo">
+            EN
+          </button>
+        </div>
+      </div>
+      <div class="form-body" id="demoFormBody">
+
+<!-- Main sign-in -->
+        <div id="scene-login" class="scene is-visible" role="tabpanel">
+          <h2 class="form-title scene-title--desktop-only">Welcome to CAM</h2>
+          <button type="button" class="sso-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            OAuth 2.0/OIDC
+          </button>
+          <div class="sso-row">
+            <button type="button" class="sso-secondary">Sign in with AWS</button>
+            <button type="button" class="sso-secondary">Sign in with Keycloak</button>
+          </div>
+          <div class="divider"><span>or</span></div>
+          <form onsubmit="event.preventDefault();">
+            <div class="field-group">
+              <label class="field-label">Email / username</label>
+              <input class="field-input" type="text" placeholder="email@institution.com" autocomplete="username" autofocus>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Password</label>
+              <div class="password-field">
+                <input class="field-input" id="pwd-main" type="password" placeholder="••••••••" autocomplete="current-password">
+                <button type="button" class="eye-toggle" onclick="togglePwd('pwd-main')" aria-label="Show password">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="forgot-row">
+              <button type="button" class="forgot-link">Forgot password?</button>
+            </div>
+            <button type="submit" class="submit-btn">Sign in</button>
+          </form>
+        </div>
+
+        <!-- Forgot password · step 1 -->
+        <div id="scene-forget1" class="scene" role="tabpanel">
+          <div class="fp-steps">
+            <div class="fp-step active">
+              <div class="fp-step__dot">1</div>
+              <span class="fp-step__label">Email / username</span>
+            </div>
+            <div class="fp-step__line"></div>
+            <div class="fp-step">
+              <div class="fp-step__dot">2</div>
+              <span class="fp-step__label">Check inbox</span>
+            </div>
+          </div>
+          <h2 class="form-title scene-title--desktop-only" style="font-size:22px;margin-bottom:8px">Reset password</h2>
+          <p class="form-sub scene-sub--desktop-only" style="margin-top:0">Enter your email or username and we'll send a verification email.</p>
+          <div class="field-group">
+            <label class="field-label">Email / username</label>
+            <input class="field-input" type="text" placeholder="">
+          </div>
+          <button type="button" class="submit-btn" style="background:var(--primary-blue)">Send verification email</button>
+          <div class="back-row">← Back to sign in</div>
+        </div>
+
+        <!-- Forgot password · step 2 -->
+        <div id="scene-forget2" class="scene" role="tabpanel">
+          <div class="fp-steps">
+            <div class="fp-step done">
+              <div class="fp-step__dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+              <span class="fp-step__label">Email / username</span>
+            </div>
+            <div class="fp-step__line done"></div>
+            <div class="fp-step active">
+              <div class="fp-step__dot">2</div>
+              <span class="fp-step__label">Check inbox</span>
+            </div>
+          </div>
+          <div class="fp-sent">
+            <div class="fp-sent__icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+            </div>
+            <h2 class="form-title" style="font-size:20px;margin-bottom:12px;text-align:center">Check your inbox</h2>
+            <p class="form-sub" style="text-align:center;margin:0 0 8px">Verification email sent to</p>
+            <div class="fp-email">user@example.com</div>
+          </div>
+          <div class="back-row">← Back to sign in</div>
+        </div>
+
+        <!-- GA -->
+        <div id="scene-ga" class="scene" role="tabpanel">
+          <div class="back-row" style="justify-content:flex-start;margin-top:0;margin-bottom:16px;font-size:13px">← Back</div>
+          <h2 class="form-title scene-title--desktop-only" style="font-size:22px;margin-bottom:8px">Security verification</h2>
+          <p class="form-sub scene-sub--desktop-only" style="margin-top:0">Enter the 6-digit authenticator code</p>
+          <div class="field-group">
+            <label class="field-label">Authenticator code</label>
+            <input class="field-input" type="text" inputmode="numeric" maxlength="6" placeholder="" autocomplete="one-time-code">
+          </div>
+          <button type="button" class="submit-btn" style="background:var(--primary-blue)">Confirm</button>
+        </div>
+
+        <!-- Token · link expired -->
+        <div id="scene-token-expired" class="scene" role="tabpanel">
+          <div class="token-error">
+            <div class="token-error__icon token-error__icon--warn"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+            <h2 class="form-title" style="font-size:20px;margin-bottom:12px">Link expired</h2>
+            <p class="form-sub" style="text-align:center;margin:0">Please try again or contact the 1Token Customer Success team.</p>
+          </div>
+        </div>
+
+        <!-- Token Verification failed -->
+        <div id="scene-token-fail" class="scene" role="tabpanel">
+          <div class="token-error">
+            <div class="token-error__icon token-error__icon--err" aria-hidden="true">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+            </div>
+            <h2 class="form-title" style="font-size:20px;margin-bottom:12px">Verification failed</h2>
+            <p class="form-sub" style="text-align:center;margin:0">Please try again or contact the 1Token Customer Success team.</p>
+          </div>
+        </div>
+
+        <!-- First login · change password (step 1 of 4) -->
+        <div id="scene-first-login" class="scene" role="tabpanel">
+          <div class="fp-steps fp-steps--init4" aria-label="First-login flow">
+            <div class="fp-step active">
+              <div class="fp-step__dot">1</div>
+              <span class="fp-step__label">Change password</span>
+            </div>
+            <div class="fp-step__line"></div>
+            <div class="fp-step">
+              <div class="fp-step__dot">2</div>
+              <span class="fp-step__label">Bind Google Authenticator</span>
+            </div>
+            <div class="fp-step__line"></div>
+            <div class="fp-step">
+              <div class="fp-step__dot">3</div>
+              <span class="fp-step__label">Bind YubiKey</span>
+            </div>
+            <div class="fp-step__line"></div>
+            <div class="fp-step">
+              <div class="fp-step__dot">4</div>
+              <span class="fp-step__label">All set</span>
+            </div>
+          </div>
+          <h2 class="form-title scene-title--desktop-only" style="font-size:22px;margin-bottom:8px">Change password</h2>
+          <p class="form-sub scene-sub--desktop-only" style="margin-top:0">First-time sign-in: change your initial password and bind Google Authenticator.</p>
+          <div class="field-group">
+            <label class="field-label">New password</label>
+            <div class="password-field">
+              <input class="field-input" id="pwd-new" type="password" placeholder="8–20 characters" autocomplete="new-password">
+              <button type="button" class="eye-toggle" onclick="togglePwd('pwd-new')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Confirm password</label>
+            <div class="password-field">
+              <input class="field-input" id="pwd-new2" type="password" placeholder="Confirm password" autocomplete="new-password">
+              <button type="button" class="eye-toggle" onclick="togglePwd('pwd-new2')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+            </div>
+          </div>
+          <button type="button" class="submit-btn" style="background:var(--primary-blue)">Next →</button>
+        </div>
+
+        <!-- First login · step 2 · bind GA (QR placeholder) -->
+        <div id="scene-first-login-2" class="scene" role="tabpanel">
+          <div class="fp-steps fp-steps--init4" aria-label="First-login flow">
+            <div class="fp-step done">
+              <div class="fp-step__dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+              <span class="fp-step__label">Change password</span>
+            </div>
+            <div class="fp-step__line done"></div>
+            <div class="fp-step active">
+              <div class="fp-step__dot">2</div>
+              <span class="fp-step__label">Bind Google Authenticator</span>
+            </div>
+            <div class="fp-step__line"></div>
+            <div class="fp-step">
+              <div class="fp-step__dot">3</div>
+              <span class="fp-step__label">Bind YubiKey</span>
+            </div>
+            <div class="fp-step__line"></div>
+            <div class="fp-step">
+              <div class="fp-step__dot">4</div>
+              <span class="fp-step__label">All set</span>
+            </div>
+          </div>
+          <h2 class="form-title scene-title--desktop-only" style="font-size:22px;margin-bottom:6px">Bind Google Authenticator</h2>
+          <p class="form-sub scene-sub--desktop-only" style="margin-top:0;margin-bottom:18px">Open Google Authenticator and scan the QR code below or enter the secret key manually.</p>
+
+          <div class="init-ga-section">
+            <div class="init-ga-step-title">
+              <span class="init-ga-step-num">1</span>
+              Download an authenticator app
+            </div>
+            <div class="init-ga-body">
+              On iOS, open the App Store and search for Authenticator to download.<br>
+              On Android, use your app store or browser to find Google Authenticator. In some regions you may use Authy instead.
+            </div>
+            <div class="init-ga-store-btns">
+              <a class="init-ga-store-btn init-ga-store-btn--primary" href="https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8" target="_blank" rel="noopener noreferrer">App Store</a>
+              <a class="init-ga-store-btn init-ga-store-btn--success" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2" target="_blank" rel="noopener noreferrer">Google Play</a>
+            </div>
+          </div>
+
+          <div class="init-ga-section">
+            <div class="init-ga-step-title">
+              <span class="init-ga-step-num">2</span>
+              Add the key in Authenticator and back it up
+            </div>
+            <div class="init-ga-body">Open Google Authenticator and scan the QR code below or enter the secret key manually.</div>
+            <div class="init-ga-warn-box">
+              <div class="init-ga-warn-header">
+                <span class="init-ga-warn-dot"></span>
+                <span class="init-ga-warn-title">Important: back up your secret key</span>
+              </div>
+              <div class="init-ga-warn-body">You need this key to recover Authenticator if you replace or lose your phone—save it before you finish binding.</div>
+            </div>
+            <div class="init-ga-qr-row">
+              <div class="init-ga-qr-placeholder" aria-hidden="true">QR code<br>area<br><span style="font-size:10px;opacity:.85">(demo placeholder)</span></div>
+              <div class="init-ga-qr-right">
+                <div class="init-ga-secret-label">Secret key</div>
+                <div class="init-ga-secret-box">
+                  <span class="init-ga-secret-text" id="initGaSecretDemo">JBSWY3DPEHPK3PXP</span>
+                  <button type="button" class="init-ga-copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('initGaSecretDemo').textContent).catch(function(){})">Copy</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="init-ga-section">
+            <div class="init-ga-step-title">
+              <span class="init-ga-step-num">3</span>
+              Enter the 6-digit code from Authenticator
+            </div>
+            <label class="init-ga-field-label" for="initGaCodeInput">Authenticator code</label>
+            <input class="field-input" id="initGaCodeInput" type="text" inputmode="numeric" maxlength="6" placeholder="Authenticator code" autocomplete="one-time-code" style="margin-bottom:12px">
+            <button type="button" class="init-ga-next">Next →</button>
+          </div>
+        </div>
+
+        <!-- First login · step 3 · YubiKey -->
+        <div id="scene-first-login-3" class="scene" role="tabpanel">
+          <div class="fp-steps fp-steps--init4" aria-label="First-login flow">
+            <div class="fp-step done">
+              <div class="fp-step__dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+              <span class="fp-step__label">Change password</span>
+            </div>
+            <div class="fp-step__line done"></div>
+            <div class="fp-step done">
+              <div class="fp-step__dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+              <span class="fp-step__label">Bind Google Authenticator</span>
+            </div>
+            <div class="fp-step__line done"></div>
+            <div class="fp-step active">
+              <div class="fp-step__dot">3</div>
+              <span class="fp-step__label">Bind YubiKey</span>
+            </div>
+            <div class="fp-step__line"></div>
+            <div class="fp-step">
+              <div class="fp-step__dot">4</div>
+              <span class="fp-step__label">All set</span>
+            </div>
+          </div>
+          <h2 class="form-title scene-title--desktop-only" style="font-size:22px;margin-bottom:8px">Bind YubiKey</h2>
+          <p class="form-sub scene-sub--desktop-only" style="margin-top:0;margin-bottom:8px">Insert your security key into the USB port</p>
+          <p class="form-sub" style="margin:0 0 20px;font-size:12px;color:#94a3b8;line-height:1.55">If your key has a flashing button, press it or touch the gold contact.</p>
+          <button type="button" class="submit-btn" style="background:var(--primary-blue)">Next →</button>
+        </div>
+
+        <!-- First login · step 4 · done -->
+        <div id="scene-first-login-4" class="scene" role="tabpanel">
+          <div class="fp-steps fp-steps--init4" aria-label="First-login flow">
+            <div class="fp-step done">
+              <div class="fp-step__dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+              <span class="fp-step__label">Change password</span>
+            </div>
+            <div class="fp-step__line done"></div>
+            <div class="fp-step done">
+              <div class="fp-step__dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+              <span class="fp-step__label">Bind Google Authenticator</span>
+            </div>
+            <div class="fp-step__line done"></div>
+            <div class="fp-step done">
+              <div class="fp-step__dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+              <span class="fp-step__label">Bind YubiKey</span>
+            </div>
+            <div class="fp-step__line done"></div>
+            <div class="fp-step active">
+              <div class="fp-step__dot">4</div>
+              <span class="fp-step__label">All set</span>
+            </div>
+          </div>
+          <div class="fp-sent" style="padding-top:8px">
+            <div class="fp-sent__icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+            <h2 class="form-title scene-title--desktop-only" style="font-size:20px;margin-bottom:8px;text-align:center">All set</h2>
+            <p class="form-sub scene-sub--desktop-only" style="margin:0;text-align:center">Welcome to CAM</p>
+            <button type="button" class="submit-btn" style="background:var(--primary-blue);margin-top:24px">Enter CAM</button>
+          </div>
+        </div>
+
+        <!-- Internal Dev 2FA (DevLoginVerify.vue structure) -->
+        <div id="scene-dev" class="scene" role="tabpanel">
+          <h2 class="form-title scene-title--desktop-only" style="font-size:22px;margin-bottom:8px">Two-factor sign-in (Dev)</h2>
+          <p class="form-sub scene-sub--desktop-only" style="margin-top:0">Internal Dev Permission — verify your identity to proceed</p>
+          <div class="field-group">
+            <label class="field-label">Email</label>
+            <div class="email-row-dev">
+              <input class="field-input field-input-email" type="text" placeholder="Email" autocomplete="off">
+              <select class="field-input field-input-suffix" title="Email domain">
+                <option value="@1token.trade">@1token.trade</option>
+                <option value="@1tokentech.com">@1tokentech.com</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Email verification code</label>
+            <div class="code-row">
+              <input class="field-input" type="text" inputmode="numeric" maxlength="6" placeholder="Email verification code" autocomplete="off">
+              <button type="button" class="send-code-btn">Send code</button>
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Reason for access</label>
+            <textarea class="field-input" placeholder="Reason for access" rows="3"></textarea>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Authenticator code</label>
+            <input class="field-input" type="text" inputmode="numeric" maxlength="6" placeholder="Authenticator code" autocomplete="off">
+          </div>
+          <div class="dev-info-box">
+            <span class="dev-info-dot"></span>
+            <span>Enter the email code first, then the authenticator code, so the latter does not time out.</span>
+          </div>
+          <div class="dev-warn-box">
+            <div class="dev-warn-header">
+              <span class="dev-warn-dot"></span>
+              <span class="dev-warn-title">Important: access policy</span>
+            </div>
+            <p class="dev-warn-body">We may have access to customer environments—follow professional standards and SOC2 requirements.</p>
+            <p class="dev-warn-body">Principles:</p>
+            <ul class="dev-warn-list">
+              <li><strong>Least access:</strong> Sign in only when authorized and needed for specific work (e.g. debugging, routine checks).</li>
+              <li><strong>Data minimization:</strong> Access only data directly needed to resolve the issue.</li>
+              <li><strong>Accountability:</strong> All access is logged, monitored, and subject to audit.</li>
+            </ul>
+            <p class="dev-warn-danger">Do not browse or access data without a clear work purpose.</p>
+          </div>
+          <button type="button" class="submit-btn" style="background:var(--primary-blue);margin-top:20px">Confirm</button>
+        </div>
+      </div>
+
+      <div class="form-footer">
+        <div class="compliance-badges">
+          <span class="compliance-item">
+            <span class="compliance-check">✓</span>
+            SOC2
+          </span>
+          <span class="compliance-item">
+            <span class="compliance-check">✓</span>
+            ISO 27001
+          </span>
+          <span class="compliance-item">
+            <span class="compliance-check">✓</span>
+            OCC
+          </span>
+        </div>
+        <div class="operational">
+          <span class="op-dot"></span>
+          Operational
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var SCENES = {
+        login: { title: 'Welcome to CAM', sub: '' },
+        forget1: { title: 'Reset password', sub: 'Enter your email or username and we will send a verification email.' },
+        forget2: { title: 'Check your inbox', sub: '' },
+        ga: { title: 'Security verification', sub: 'Enter the 6-digit authenticator code.' },
+        'token-expired': { title: 'Link expired', sub: '' },
+        'token-fail': { title: 'Verification failed', sub: '' },
+        'first-login': { title: 'Change password', sub: 'First-time sign-in: change your initial password and bind Google Authenticator.' },
+        'first-login-2': { title: 'Bind Google Authenticator', sub: 'Open Google Authenticator and scan the QR code below or enter the secret key manually.' },
+        'first-login-3': { title: 'Bind YubiKey', sub: 'Insert your security key into the USB port.' },
+        'first-login-4': { title: 'All set', sub: 'Welcome to CAM' },
+        dev: { title: 'Two-factor sign-in (Dev)', sub: 'Internal Dev access — verify your identity to proceed.' }
+      };
+
+      function showScene(id) {
+        document.body.classList.toggle('layout-dev-scene', id === 'dev');
+        document.querySelectorAll('.scene').forEach(function (el) {
+          el.classList.remove('is-visible');
+        });
+        var panel = document.getElementById('scene-' + id);
+        if (panel) panel.classList.add('is-visible');
+        document.querySelectorAll('.demo-chip').forEach(function (btn) {
+          btn.classList.toggle('is-active', btn.getAttribute('data-scene') === id);
+        });
+        var bodyEl = document.getElementById('demoFormBody');
+        if (bodyEl) {
+          bodyEl.classList.toggle('form-body--dev', id === 'dev');
+          bodyEl.classList.toggle('form-body--init', id.indexOf('first-login') === 0);
+        }
+        var meta = SCENES[id] || SCENES.login;
+        document.getElementById('mobileTitle').textContent = meta.title;
+        var subEl = document.getElementById('mobileSub');
+        if (meta.sub) {
+          subEl.textContent = meta.sub;
+          subEl.style.display = 'block';
+        } else {
+          subEl.textContent = '';
+          subEl.style.display = 'none';
+        }
+      }
+
+      document.querySelectorAll('.demo-chip').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          showScene(btn.getAttribute('data-scene'));
+        });
+      });
+
+      function togglePwd(id, iconId) {
+        const p = document.getElementById(id)
+        if (!p) return
+        const i = iconId ? document.getElementById(iconId) : null
+        if (p.type === 'password') {
+          p.type = 'text'
+          if (i) {
+            i.innerHTML =
+              '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>'
+          }
+        } else {
+          p.type = 'password'
+          if (i) {
+            i.innerHTML =
+              '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>'
+          }
+        }
+      }
+
+      // ═══ Node Network Animation ═══
+      ;(function () {
+        const canvas = document.getElementById('nodeCanvas')
+        if (!canvas) return
+        const ctx = canvas.getContext('2d')
+        let W,
+          H,
+          nodes = [],
+          mouse = { x: -100, y: -100 }
+
+        function resize() {
+          const rect = canvas.parentElement.getBoundingClientRect()
+          W = canvas.width = rect.width
+          H = canvas.height = 260
+          canvas.style.width = W + 'px'
+          canvas.style.height = H + 'px'
+        }
+
+        function createNodes() {
+          nodes = []
+          const count = Math.floor((W * H) / 8000)
+          for (let i = 0; i < count; i++) {
+            nodes.push({
+              x: Math.random() * W,
+              y: Math.random() * H,
+              vx: (Math.random() - 0.5) * 0.3,
+              vy: (Math.random() - 0.5) * 0.3,
+              r: Math.random() * 2 + 1.5
+            })
+          }
+        }
+
+        function draw() {
+          ctx.clearRect(0, 0, W, H)
+          const maxDist = 120
+
+          // Draw connections
+          for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+              const dx = nodes[i].x - nodes[j].x
+              const dy = nodes[i].y - nodes[j].y
+              const dist = Math.sqrt(dx * dx + dy * dy)
+              if (dist < maxDist) {
+                const alpha = (1 - dist / maxDist) * 0.15
+                ctx.beginPath()
+                ctx.moveTo(nodes[i].x, nodes[i].y)
+                ctx.lineTo(nodes[j].x, nodes[j].y)
+                ctx.strokeStyle = `rgba(77, 171, 255, ${alpha})`
+                ctx.lineWidth = 0.8
+                ctx.stroke()
+              }
+            }
+          }
+
+          // Draw nodes
+          for (const n of nodes) {
+            ctx.beginPath()
+            ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2)
+            ctx.fillStyle = 'rgba(77, 171, 255, 0.5)'
+            ctx.fill()
+
+            // Move
+            n.x += n.vx
+            n.y += n.vy
+            if (n.x < 0 || n.x > W) n.vx *= -1
+            if (n.y < 0 || n.y > H) n.vy *= -1
+          }
+
+          requestAnimationFrame(draw)
+        }
+
+        resize()
+        createNodes()
+        draw()
+        window.addEventListener('resize', () => {
+          resize()
+          createNodes()
+        })
+      })()
+    </script>
+  </body>
+</html>

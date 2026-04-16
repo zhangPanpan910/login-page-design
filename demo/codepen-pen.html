@@ -1,0 +1,23 @@
+<!--
+  CodePen: paste this entire file into the HTML panel (no DOCTYPE / html / head).
+  Pair with codepen-pen.css and codepen-pen.js in the other panels.
+-->
+<nav class="cp-bar" aria-label="方案切换">
+    <span class="cp-bar__title">CAM 登录页调研</span>
+    <button type="button" class="cp-tab is-active" data-idx="0">方案 1 · 左右分栏</button>
+    <button type="button" class="cp-tab" data-idx="1">方案 2 · 网格 + 居中卡片</button>
+    <button type="button" class="cp-tab" data-idx="2">方案 3 · Version C</button>
+  </nav>
+  <nav class="cp-bar cp-bar--sizes" aria-label="预览尺寸">
+    <span class="cp-bar__title cp-bar__title--sub">预览尺寸</span>
+    <button type="button" class="cp-size is-active" data-w="1440" data-h="900">1440 × 900</button>
+    <button type="button" class="cp-size" data-w="1920" data-h="1080">1920 × 1080</button>
+    <button type="button" class="cp-size" data-w="2560" data-h="1600">2560 × 1600</button>
+  </nav>
+  <div class="cp-viewport">
+    <div class="cp-stage" style="width:1440px;height:900px">
+      <iframe class="cp-frame is-active" title="方案 1 · 左右分栏" data-idx="0"></iframe>
+      <iframe class="cp-frame" title="方案 2 · 网格 + 居中卡片" data-idx="1"></iframe>
+      <iframe class="cp-frame" title="方案 3 · Version C" data-idx="2"></iframe>
+    </div>
+  </div>
