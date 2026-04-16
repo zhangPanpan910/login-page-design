@@ -927,7 +927,7 @@
     .submit-btn {
       width: 100%;
       height: 44px;
-      background: var(--text-primary);
+      background: #1677ff;
       border: none;
       border-radius: var(--radius-sm);
       color: #fff;
@@ -935,9 +935,10 @@
       font-weight: 600;
       font-family: inherit;
       cursor: pointer;
+      transition: all 0.2s;
     }
 
-    .submit-btn:hover { background: #1e293b; }
+    .submit-btn:hover { background: #4096ff; box-shadow: 0 4px 16px rgba(22, 119, 255, 0.25); }
 
     /* 忘记密码步骤条 */
     .fp-steps {
@@ -1549,7 +1550,7 @@
     <div class="mobile-top">
       <div class="mobile-logo">
         <span class="cam-logo-mark cam-logo-mark--navy" role="img" aria-label="CAM"></span>
-        <span class="mobile-logo-text">CAM SYSTEM</span>
+        <span class="mobile-logo-text">CAM</span>
       </div>
       <button type="button" class="mobile-lang" title="Demo">EN</button>
     </div>
@@ -1561,7 +1562,7 @@
     <div class="b-desktop-header__inner">
       <div class="b-desktop-brand">
         <span class="cam-logo-mark cam-logo-mark--navy" role="img" aria-label="CAM"></span>
-        <span class="b-desktop-brand__text">CAM SYSTEM</span>
+        <span class="b-desktop-brand__text">CAM</span>
       </div>
       <div class="b-desktop-header__meta">
         <span class="region-badge region-badge--light">SG-PROD</span>
@@ -1600,7 +1601,6 @@
         <!-- Main sign-in -->
         <div id="scene-login" class="scene is-visible" role="tabpanel">
           <div class="plan2-login-hero scene-title--desktop-only">
-            <span class="plan2-login-hero__logo cam-logo-mark cam-logo-mark--navy cam-logo-mark--xl" aria-hidden="true"></span>
             <h2 class="plan2-login-hero__title">Welcome to CAM</h2>
             <p class="plan2-login-hero__sub">Use your institutional credentials</p>
           </div>
@@ -1610,7 +1610,7 @@
           </button>
           <div class="sso-row">
             <button type="button" class="sso-secondary">Sign in with AWS Cognito</button>
-            <button type="button" class="sso-secondary">Sign in with KeyCloak</button>
+            <button type="button" class="sso-secondary">Sign in with Keycloak</button>
           </div>
           <div class="divider"><span>or</span></div>
           <form onsubmit="event.preventDefault();">

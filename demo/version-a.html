@@ -857,7 +857,7 @@
     .submit-btn {
       width: 100%;
       height: 44px;
-      background: var(--text-primary);
+      background: #1677ff;
       border: none;
       border-radius: var(--radius-sm);
       color: #fff;
@@ -865,9 +865,10 @@
       font-weight: 600;
       font-family: inherit;
       cursor: pointer;
+      transition: all 0.2s;
     }
 
-    .submit-btn:hover { background: #1e293b; }
+    .submit-btn:hover { background: #4096ff; box-shadow: 0 4px 16px rgba(22, 119, 255, 0.25); }
 
     /* 忘记密码步骤条 */
     .fp-steps {
@@ -1156,7 +1157,7 @@
     <div class="mobile-top">
       <div class="mobile-logo">
         <span class="cam-logo-mark" role="img" aria-label="CAM"></span>
-        <span class="mobile-logo-text">CAM SYSTEM</span>
+        <span class="mobile-logo-text">CAM</span>
       </div>
       <button type="button" class="mobile-lang" title="Demo">EN</button>
     </div>
@@ -1173,7 +1174,7 @@
     <div class="brand-top">
       <div class="brand-logo">
         <span class="cam-logo-mark" role="img" aria-label="CAM"></span>
-        <span class="logo-text">CAM SYSTEM</span>
+        <span class="logo-text">CAM</span>
       </div>
       <div class="region-badge">SG-PROD</div>
     </div>
@@ -1243,10 +1244,10 @@
           <h2 class="form-title scene-title--desktop-only">Welcome to CAM</h2>
           <button type="button" class="sso-primary">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            OAuth 2.0/OIDC
+            Enterprise SSO
           </button>
           <div class="sso-row">
-            <button type="button" class="sso-secondary">Sign in with AWS</button>
+            <button type="button" class="sso-secondary">Sign in with AWS Cognito</button>
             <button type="button" class="sso-secondary">Sign in with Keycloak</button>
           </div>
           <div class="divider"><span>or</span></div>
