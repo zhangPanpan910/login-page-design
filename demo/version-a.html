@@ -10,7 +10,7 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --brand-bg: #0a1628;
+      --brand-bg: #1e2d3d;
       --brand-accent: #3b82f6;
       --brand-accent-light: #60a5fa;
       --form-bg: #f8fafc;
@@ -48,28 +48,15 @@
       flex-shrink: 0;
     }
 
-    .grid-bg {
+    /* Node network canvas */
+    .node-canvas {
       position: absolute;
-      inset: 0;
-      opacity: 0.06;
-      background-image:
-        linear-gradient(rgba(59,130,246,0.5) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(59,130,246,0.5) 1px, transparent 1px);
-      background-size: 60px 60px;
-      mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
-      -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
+      top: 60px;
+      left: 0;
+      right: 0;
+      height: 300px;
       pointer-events: none;
     }
-
-    .orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      pointer-events: none;
-    }
-    .orb-1 { width: 400px; height: 400px; background: rgba(59, 130, 246, 0.15); top: -100px; left: -80px; }
-    .orb-2 { width: 300px; height: 300px; background: rgba(139, 92, 246, 0.1); bottom: -60px; right: -40px; }
-    .orb-3 { width: 200px; height: 200px; background: rgba(6, 182, 212, 0.08); top: 40%; left: 60%; }
 
     .brand-top {
       position: relative;
@@ -195,39 +182,37 @@
       max-width: 340px;
     }
 
-    .brand-bottom {
+    /* Logo wall */
+    .logo-wall {
       position: relative;
       z-index: 2;
+      margin-top: auto;
+    }
+
+    .logo-wall-label {
+      font-size: 9px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.2);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 14px;
+    }
+
+    .logo-wall-items {
       display: flex;
-      gap: 16px;
-      align-items: center;
+      gap: 10px;
       flex-wrap: wrap;
     }
 
-    .status-chip {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 10px;
-      font-family: 'JetBrains Mono', monospace;
-      color: #64748b;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.06);
+    .logo-chip {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.45);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.06);
       border-radius: 6px;
-      padding: 4px 10px;
-    }
-
-    .status-chip .label {
-      font-size: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      color: #475569;
-    }
-
-    .ping-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: #22c55e;
+      padding: 6px 14px;
+      letter-spacing: 0.3px;
     }
 
     /* ── 右侧表单区 ── */
@@ -1166,11 +1151,6 @@
   </div>
 
   <div class="brand-panel">
-    <div class="grid-bg"></div>
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-
     <div class="brand-top">
       <div class="brand-logo">
         <span class="cam-logo-mark" role="img" aria-label="CAM"></span>
@@ -1178,6 +1158,8 @@
       </div>
       <div class="region-badge">SG-PROD</div>
     </div>
+
+    <canvas class="node-canvas" id="nodeCanvas"></canvas>
 
     <div class="brand-center">
       <h1 class="brand-headline">
@@ -1195,18 +1177,14 @@
       </p>
     </div>
 
-    <div class="brand-bottom">
-      <div class="status-chip">
-        <span class="label">Local</span>
-        <span id="local-time">--:--:--</span>
-      </div>
-      <div class="status-chip">
-        <span class="label">Server</span>
-        <span id="server-time">--:--:--</span>
-      </div>
-      <div class="status-chip">
-        <span class="ping-dot"></span>
-        12 ms
+    <div class="logo-wall">
+      <div class="logo-wall-label">Trusted by leading institutions</div>
+      <div class="logo-wall-items">
+        <span class="logo-chip">HSBC</span>
+        <span class="logo-chip">JPMorgan</span>
+        <span class="logo-chip">Fidelity</span>
+        <span class="logo-chip">DBS</span>
+        <span class="logo-chip">Nomura</span>
       </div>
     </div>
   </div>
@@ -1647,16 +1625,72 @@
       p.type = p.type === 'password' ? 'text' : 'password';
     }
 
-    function tick() {
-      var now = new Date();
-      var f = function (d) { return String(d).padStart(2, '0'); };
-      document.getElementById('local-time').textContent =
-        f(now.getHours()) + ':' + f(now.getMinutes()) + ':' + f(now.getSeconds());
-      document.getElementById('server-time').textContent =
-        f(now.getUTCHours()) + ':' + f(now.getUTCMinutes()) + ':' + f(now.getUTCSeconds()) + ' UTC';
-    }
-    tick();
-    setInterval(tick, 1000);
+    // ═══ Node Network Animation ═══
+    ;(function () {
+      const canvas = document.getElementById('nodeCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let W, H, nodes = [];
+
+      function resize() {
+        const rect = canvas.parentElement.getBoundingClientRect();
+        W = canvas.width = rect.width;
+        H = canvas.height = 260;
+        canvas.style.width = W + 'px';
+        canvas.style.height = H + 'px';
+      }
+
+      function createNodes() {
+        nodes = [];
+        const count = Math.floor((W * H) / 8000);
+        for (let i = 0; i < count; i++) {
+          nodes.push({
+            x: Math.random() * W,
+            y: Math.random() * H,
+            vx: (Math.random() - 0.5) * 0.3,
+            vy: (Math.random() - 0.5) * 0.3,
+            r: Math.random() * 2 + 1.5
+          });
+        }
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+        const maxDist = 120;
+        for (let i = 0; i < nodes.length; i++) {
+          for (let j = i + 1; j < nodes.length; j++) {
+            const dx = nodes[i].x - nodes[j].x;
+            const dy = nodes[i].y - nodes[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < maxDist) {
+              const alpha = (1 - dist / maxDist) * 0.15;
+              ctx.beginPath();
+              ctx.moveTo(nodes[i].x, nodes[i].y);
+              ctx.lineTo(nodes[j].x, nodes[j].y);
+              ctx.strokeStyle = `rgba(77, 171, 255, ${alpha})`;
+              ctx.lineWidth = 0.8;
+              ctx.stroke();
+            }
+          }
+        }
+        for (const n of nodes) {
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(77, 171, 255, 0.5)';
+          ctx.fill();
+          n.x += n.vx;
+          n.y += n.vy;
+          if (n.x < 0 || n.x > W) n.vx *= -1;
+          if (n.y < 0 || n.y > H) n.vy *= -1;
+        }
+        requestAnimationFrame(draw);
+      }
+
+      resize();
+      createNodes();
+      draw();
+      window.addEventListener('resize', () => { resize(); createNodes(); });
+    })();
   </script>
 </body>
 </html>
