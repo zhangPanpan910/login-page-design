@@ -1427,7 +1427,54 @@
       flex-wrap: wrap;
       gap: 12px;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
+    }
+
+    .plan2 .b-footer__left,
+    .plan2 .b-footer__right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .plan2 .b-footer__sep {
+      width: 1px;
+      height: 14px;
+      background: #e5e7eb;
+    }
+
+    .plan2 .compliance-item {
+      font-size: 11px;
+      font-family: 'SF Mono', 'JetBrains Mono', monospace;
+      color: #9ca3af;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .plan2 .compliance-check {
+      color: #22c55e;
+      font-size: 12px;
+    }
+
+    .plan2 .trusted-label {
+      font-size: 9px;
+      font-weight: 600;
+      color: #c0c4cc;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .plan2 .trusted-chip {
+      font-size: 10px;
+      font-weight: 600;
+      color: #94a3b8;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 4px;
+      padding: 2px 8px;
+      letter-spacing: 0.3px;
     }
 
     .plan2 .status-chip--light {
@@ -1620,7 +1667,7 @@
           <div class="divider"><span>or</span></div>
           <form onsubmit="event.preventDefault();">
             <div class="field-group">
-              <label class="field-label">Email / username</label>
+              <label class="field-label">Email / Username</label>
               <input class="field-input" type="text" placeholder="email@institution.com" autocomplete="username" autofocus>
             </div>
             <div class="field-group">
@@ -1644,7 +1691,7 @@
           <div class="fp-steps">
             <div class="fp-step active">
               <div class="fp-step__dot">1</div>
-              <span class="fp-step__label">Email / username</span>
+              <span class="fp-step__label">Email / Username</span>
             </div>
             <div class="fp-step__line"></div>
             <div class="fp-step">
@@ -1655,7 +1702,7 @@
           <h2 class="form-title scene-title--desktop-only" style="font-size:22px;margin-bottom:8px">Reset password</h2>
           <p class="form-sub scene-sub--desktop-only" style="margin-top:0">Enter your email or username and we'll send a verification email.</p>
           <div class="field-group">
-            <label class="field-label">Email / username</label>
+            <label class="field-label">Email / Username</label>
             <input class="field-input" type="text" placeholder="">
           </div>
           <button type="button" class="submit-btn" style="background:var(--primary-blue)">Send verification email</button>
@@ -1667,7 +1714,7 @@
           <div class="fp-steps">
             <div class="fp-step done">
               <div class="fp-step__dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
-              <span class="fp-step__label">Email / username</span>
+              <span class="fp-step__label">Email / Username</span>
             </div>
             <div class="fp-step__line done"></div>
             <div class="fp-step active">
@@ -1955,17 +2002,30 @@
 
   <footer class="b-footer" aria-label="Connection status">
     <div class="b-footer__inner">
-      <div class="status-chip status-chip--light">
-        <span class="label">Local</span>
-        <span id="local-time">--:--:--</span>
+      <div class="b-footer__left">
+        <span class="compliance-item"><span class="compliance-check">&#10003;</span> SOC 2</span>
+        <span class="compliance-item"><span class="compliance-check">&#10003;</span> ISO 27001</span>
+        <span class="b-footer__sep"></span>
+        <span class="trusted-label">Trusted by</span>
+        <span class="trusted-chip">HSBC</span>
+        <span class="trusted-chip">JPMorgan</span>
+        <span class="trusted-chip">Fidelity</span>
+        <span class="trusted-chip">DBS</span>
+        <span class="trusted-chip">Nomura</span>
       </div>
-      <div class="status-chip status-chip--light">
-        <span class="label">Server</span>
-        <span id="server-time">--:--:--</span>
-      </div>
-      <div class="status-chip status-chip--light">
-        <span class="ping-dot"></span>
-        12 ms
+      <div class="b-footer__right">
+        <div class="status-chip status-chip--light">
+          <span class="label">Local</span>
+          <span id="local-time">--:--:--</span>
+        </div>
+        <div class="status-chip status-chip--light">
+          <span class="label">Server</span>
+          <span id="server-time">--:--:--</span>
+        </div>
+        <div class="status-chip status-chip--light">
+          <span class="ping-dot"></span>
+          12 ms
+        </div>
       </div>
     </div>
   </footer>
